@@ -55,7 +55,7 @@ function resetChest() {
     const result = document.getElementById('result');
 
     // Reset chest image and result
-    chest.style.backgroundImage = 'url(assets/Chest_closed.png)';
+    chest.style.backgroundImage = 'url(assets/Chest_Closed.png)';
     itemContainer.style.backgroundImage = 'none';
     result.textContent = '';
 
