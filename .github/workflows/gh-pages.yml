@@ -32,10 +32,12 @@ jobs:
 
       - name: Build Hugo
         working-directory: ./slides
-        run: hugo --gc --minify --cleanDestinationDir -d dist/6443/
+        run: hugo --gc --minify --cleanDestinationDir -d ../website/dist/6443/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        working-directory: ./website
         with: 
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
+          publish_dir: ./dist
