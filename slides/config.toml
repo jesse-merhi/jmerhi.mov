@@ -1,0 +1,15 @@
+title = "COMP6[84]45 Slides"
+languageCode = "en-au"
+
+enableEmoji=true
+
+relativeURLs = true
+theme = "reveal-hugo"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[outputFormats.Reveal]
+baseName = "index"
+mediaType = "text/html"
+isHTML = true
