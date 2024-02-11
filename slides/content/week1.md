@@ -4,13 +4,13 @@ layout: "bundle"
 outputs: ["Reveal"]
 ---
 
-## We'll get started at 18:05
+## We'll get started at 5 past the hour!
 
 ---
 
 {{< slide class="center" >}}
 # week01
-### COMP6443 H18A 
+### COMP6443
 
 ---
 
@@ -26,27 +26,33 @@ We expect a high standard of professionalism from you at all times while you are
 
 {{% section %}}
 
-## > whoami
+## Whoami
 
-* Lachlan
+* Jesse Merhi (Like that plant  + "he")
+* Product Security Grad @ Atlassian (Monday Next week)
+* Been interning there for about one and half years.
+
+---
+
+## In saying that..
+* If any of you want some advice regarding career things. Consider this tut an opportunity to chat to someone who is in the industry and has some insight!
 
 ---
 
 ## how to contact me
 
-* lachlan.waugh@student.unsw.edu.au
-* [@melon]() on the SecEdu Slack
-* [@melon]() on the SecSoc Discord
-* OpenLearning group (H18A Online)
+* jesse.merhi@student.unsw.edu.au
+* [@Merhi]() on the SecSoc Discord (pls join)
+* [https://secso.cc/discord](https://secso.cc/discord)
 
 ---
 
 ## places for course discussion
 
-* [seceduau.slack.com/signup](https://seceduau.slack.com/signup)
-    * #cs6443
-    * #cs6443-22t2-h16a
-* [discord.gg/???]()
+* [SecSoc Discord](https://secso.cc/discord) - Ad-hoc and general chatting
+* We also have Ed! (More official)
+* How do I find Ed? [Moodle](https://moodle.telt.unsw.edu.au/my/)
+
 
 {{% /section %}}
 
@@ -56,15 +62,14 @@ We expect a high standard of professionalism from you at all times while you are
 
 {{% section %}}
 
-![](../img/week01/icebreaker.jpg)
+![test](/assets/img/week01/icebreaker.jpg)
 
 ---
 
 * Your name, degree, year?
 * Why'd you do the course?
-* What time did you sleep last night?
-* Fun fact?
-* ~~Your credit card number and the 3 wacky digits on the back~~
+* What you are most excited to learn about
+* YOUR DREAM JOB?
 
 {{% /section %}}
 
@@ -73,48 +78,73 @@ We expect a high standard of professionalism from you at all times while you are
 ## Questions
 * Are tuts compulsory? No
 * Are they recorded? Yes
-* Where are these resources? [lwaugh.io/6443/]()
+* Where are these resources? [jmerhi.mov/6443/weekX]()
 
 ---
 
 {{% section %}}
 
 ## Course content
-* Wargames (10%)
-* 2 x PenTesting reports (40%)
+* Challenges (10%)
+* 2 x Reports (40%)
 * Mid-term (0%)
 * Final (50%)
 
 ---
 
-## Wargames
-* don't leave them to the last minute, you'll be sad :(
+## Challenges
 
-* cool to collaborate/work together, but your flags need to be different.
+* If you havent set up MTLS - dont worry we will do that today.
 
-* extended flags aren't *required*, but you should do them anyway (they're way cooler imo)
+* [https://ctfd.quoccabank.com](https://ctfd.quoccabank.com)
+
+* START NOW YOU WONT REGRET IT.
+
+
+---
+
+## how to approach learning in this course
+
+* Work together - but dont cheat - you are just dooming yourself.
+
+* We aren't extended - but the challenges are incredibly fun to solve, so if you are interested try to get them done.
+
+* I will be of some help - but I wont give things away. If you need extra help, I have two tuts.
 
 ---
 
 ## Report
-* pentesting / vulnerability report
-    * groups of 3-4
-    * keep track of how you got found each of the flags
-    * threats and remediation are really important
+* Pentesting / Vulnerability report
+    * Groups of 3
+    * Keep track of how you got found each of the flags
+    * Threats and Remediation are really important
 
 {{% /section %}}
 
 ---
 
 {{% section %}}
-## Recon
-> I have some cool stuff @ [lwaugh.io/6443/resources/recon]()
-* active vs passive recon? what the heck is that
-* *TODO: maybe show some of it off?*
+
+## What happened in the lecture? 
+* Did we watch the lectures? 
+* What did the panda say
+* Are we DNS masterminds
+* Make sure to ask "What is a JWT?" in the next lecture.
+
+
+![Panda](https://tenor.com/view/kris-mansfield-kristian-mansfield-gif-9274499650417227911.gif)
 
 ---
 
-## Bruteforcing at Uni
+
+## Recon
+> I have some cool stuff @ [jmerhi.zip/6443/resources/recon]()
+* What is "Active Recon"
+* What is "Passive Recon"
+
+---
+
+## Bruteforcing on Uni Wifi
 > if you use automated tools, pls dont use uni DNS servers, use these :)
 * Google - 8.8.8.8
 * Cloudflare - 1.1.1.1
@@ -132,7 +162,7 @@ We expect a high standard of professionalism from you at all times while you are
 ---
 
 ## Demo
-> BurpSuite and ProxySwitchy oh my
+> BurpSuite and Proxy Setup
 
 ---
 
