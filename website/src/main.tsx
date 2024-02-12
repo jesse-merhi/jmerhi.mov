@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Recon from "./pages/Recon.tsx";
 import WebApps from "./pages/WebApps.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
+import Slides from "./pages/Slides.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "/6443/resources/recon",
         element: <Recon />,
+      },
+      {
+        path: "/6443/:week",
+        element: <Slides />,
       },
     ],
   },

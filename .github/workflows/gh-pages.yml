@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Hugo
         working-directory: ./slides
-        run: hugo --gc --minify --cleanDestinationDir -d ../website/dist/6443/
+        run: hugo --gc --minify --cleanDestinationDir -d ../website/public/6443/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

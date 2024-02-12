@@ -5,7 +5,9 @@
   "homepage": "https://jmerhi.mov/react-gh-pages",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run dev:vite & npm run dev:hugo",
+    "dev:vite": "vite --host",
+    "dev:hugo": "cd ../slides && hugo --gc --minify --cleanDestinationDir -d ../website/src/assets/6443",
     "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -13,10 +15,13 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "onchange": "^7.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-hugo-plugin": "^5.1.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.17",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -27,6 +32,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "gh-pages": "^6.1.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",

@@ -10,7 +10,7 @@ function WebApps() {
         </h1>
         <ul className="list-disc">
           <li>
-            <Link className="underline" to="https://jmerhi.mov/6443/week1/">
+            <Link className="underline" to="/6443/week1">
               Week 1
             </Link>
           </li>
