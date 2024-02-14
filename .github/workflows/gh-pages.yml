@@ -35,7 +35,7 @@ jobs:
 
       - name: Bun build
         working-directory: ./website
-        run: bun build
+        run: bun run build
         
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
