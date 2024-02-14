@@ -46,7 +46,7 @@
 <div
   class="text-4xl text-white absolute z-10 w-full h-full flex items-center justify-center"
 >
-  <div class="flex items-center justify-center flex-col">
+  <div class="flex items-center justify-center flex-col text-center">
     <div>
       <span id="line1"></span>
       <span id="cursor1" class={on1[0] ? "input-cursor" : ""}></span>
