@@ -15,16 +15,26 @@ RUN wget https://github.com/gohugoio/hugo/releases/download/v0.122.0/hugo_extend
     dpkg -i hugo_extended_0.122.0_linux-arm64.deb
 
 # Copy the current directory contents into the container
-COPY . .
+COPY ./slides ./slides
 
 # Build the Hugo site
 RUN cd ./slides && hugo --gc --minify --cleanDestinationDir -d ../website/static/6443/
 
+FROM oven/bun:latest
+WORKDIR /usr/src/app/website
+COPY ./website/package.json ./
 # Build the website
-RUN cd ./website ## npm ci && npm run build --if-present
+RUN bun install 
 
-# Expose the port the http-server runs on
+COPY ./website ./
+
+RUN bun run build
+
+# Set the working directory
+WORKDIR /usr/src/app/website
+
+# Expose the appropriate port
 EXPOSE 8080
 
-# Define the command to run http-server
-CMD ["npx", "http-server", "./website/dist"]
+# Define the command to run serve
+CMD ["bun", "run", "preview", "--host", "0.0.0.0", "--port", "8080"]
