@@ -17,14 +17,11 @@ RUN wget https://github.com/gohugoio/hugo/releases/download/v0.122.0/hugo_extend
 # Copy the current directory contents into the container
 COPY . .
 
-# Install dependencies in the website directory
-RUN cd ./website && npm ci
-
 # Build the Hugo site
-RUN cd ./slides && hugo --gc --minify --cleanDestinationDir -d ../website/public/6443/
+RUN cd ./slides && hugo --gc --minify --cleanDestinationDir -d ../website/static/6443/
 
 # Build the website
-RUN cd ./website && npm run build --if-present
+RUN cd ./website ## npm ci && npm run build --if-present
 
 # Expose the port the http-server runs on
 EXPOSE 8080
