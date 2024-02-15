@@ -4,8 +4,8 @@
 
 html,
 body {
-  height: 100dvh;
-  width: 100dvw;
+  height: 100vh;
+  width: 100vw;
   overflow: hidden;
 }
 
@@ -14,15 +14,15 @@ body {
 }
 
 .background-container {
-  width: 100dvw;
-  height: 100dvh;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
 }
 
 .lines-container {
   $particleNum: 200;
   position: absolute;
-  transform: translateY(-10dvh);
+  transform: translateY(-10vh);
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   z-index: 10;
@@ -63,14 +63,14 @@ body {
       @keyframes #{$framesName} {
         from {
           transform: translate(
-            #{$hor-position + dvw},
-            #{- $startPositionY - random(30) + dvh}
+            #{$hor-position + vw},
+            #{- $startPositionY - random(30) + vh}
           );
         }
         to {
           transform: translate(
-            #{$hor-position + dvw},
-            #{$startPositionY + 20 + dvh}
+            #{$hor-position + vw},
+            #{$startPositionY + 20 + vh}
           );
         }
       }
@@ -84,7 +84,7 @@ body {
   $particleColor: hsl(180, 100%, 80%);
 
   position: absolute;
-  transform: translateY(-10dvh);
+  transform: translateY(-10vh);
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 
@@ -149,16 +149,16 @@ body {
       @keyframes #{$framesName} {
         from {
           transform: translate3d(
-            #{random(100) + dvw},
-            #{$startPositionY + dvh},
+            #{random(100) + vw},
+            #{$startPositionY + vh},
             0
           );
         }
 
         to {
           transform: translate3d(
-            #{random(100) + dvw},
-            #{- $startPositionY - random(30) + dvh},
+            #{random(100) + vw},
+            #{- $startPositionY - random(30) + vh},
             0
           );
         }

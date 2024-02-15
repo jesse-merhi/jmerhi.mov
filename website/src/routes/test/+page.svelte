@@ -13,14 +13,14 @@
   let part2 = true;
   // Part 4 is code like randomises until it says Jesse Merhi in python or something... IT WOULD BE COOL IF IT LOOKED LIKE IT base64 decoded my name or something :eyes:
 
-  let on1: bool[] = [true, false, false];
-  let containerWidth;
+  let on1: boolean[] = [true, false, false];
+  let containerWidth: number;
   let containerHeight;
   const lineCount = 20;
   const minCharCount = 20;
   const maxCharCount = 40;
   const topPos = ((maxCharCount - 1) / 2) * 10;
-  let lines = [];
+  let lines: any[] = [];
   function transition1() {
     if (
       part1 == true &&
@@ -142,6 +142,9 @@
   <div
     class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center"
     on:click={transition1}
+    role="link"
+    tabindex="0"
+    on:keypress={transition1}
     out:fade={{ easing: sineInOut }}
   >
     <div class="flex items-center justify-center flex-col text-center">
