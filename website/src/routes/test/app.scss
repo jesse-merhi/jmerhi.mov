@@ -1,113 +1,172 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 html,
 body {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+  height: 100dvh;
+  width: 100dvw;
+  overflow: hidden;
 }
 
 body {
-    background-image: radial-gradient(#021027, #000000);
+  background-image: radial-gradient(#021027, #000000);
 }
 
-.container {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-  }
+.background-container {
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+}
 
-  .circle-container {
-    $particleWidth: 10;
-    $particleNum: 200;
-    $particleColor: hsl(180, 100%, 80%);
-
+.lines-container {
+  $particleNum: 200;
+  position: absolute;
+  transform: translateY(-10dvh);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  z-index: 10;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: consolas;
+  
+  transition: transform 2s;
+  .lines {
+    animation-delay: random(1000) + ms;
+    width: 100%;
+    height: 100%;
+    transform: rotate(270deg);
     position: absolute;
-    transform: translateY(-10vh);
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+    width:min-content;
+    height:min-content;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1)
+    );
+    background-clip: text;
+    color: transparent;
+  }
 
-    .circle {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      mix-blend-mode: screen;
-      background-image: radial-gradient(
-        hsl(180, 100%, 80%),
-        hsl(180, 100%, 80%) 10%,
-        hsla(180, 100%, 80%, 0) 56%
-      );
+  @for $i from 1 through $particleNum {
+    &:nth-child(#{$i}) {
+      width: 10px;
 
-      animation:
-        fadein-frames 200ms infinite,
-        scale-frames 2s infinite;
+      $startPositionY: random(10) + 100;
+      $framesName: "move-lines-" + $i;
+      $moveDuration: 7000 + random(4000) + ms;
 
-      @keyframes fade-frames {
-        0% {
-          opacity: 1;
+      animation-name: #{$framesName};
+      animation-duration: $moveDuration;
+      animation-delay: random(11000) + ms;
+      $hor-position: random(100);
+      @keyframes #{$framesName} {
+        from {
+          transform: translate(
+            #{$hor-position + dvw},
+            #{- $startPositionY - random(30) + dvh}
+          );
         }
-
-        50% {
-          opacity: 0.7;
-        }
-
-        100% {
-          opacity: 1;
-        }
-      }
-
-      @keyframes scale-frames {
-        0% {
-          transform: scale3d(0.4, 0.4, 1);
-        }
-
-        50% {
-          transform: scale3d(2.2, 2.2, 1);
-        }
-
-        100% {
-          transform: scale3d(0.4, 0.4, 1);
-        }
-      }
-    }
-
-    @for $i from 1 through $particleNum {
-      &:nth-child(#{$i}) {
-        $circleSize: random($particleWidth);
-        width: $circleSize + px;
-        height: $circleSize + px;
-
-        $startPositionY: random(10) + 100;
-        $framesName: "move-frames-" + $i;
-        $moveDuration: 7000 + random(4000) + ms;
-
-        animation-name: #{$framesName};
-        animation-duration: $moveDuration;
-        animation-delay: random(11000) + ms;
-
-        @keyframes #{$framesName} {
-          from {
-            transform: translate3d(
-              #{random(100) + vw},
-              #{$startPositionY + vh},
-              0
-            );
-          }
-
-          to {
-            transform: translate3d(
-              #{random(100) + vw},
-              #{- $startPositionY - random(30) + vh},
-              0
-            );
-          }
-        }
-
-        .circle {
-          animation-delay: random(4000) + ms;
+        to {
+          transform: translate(
+            #{$hor-position + dvw},
+            #{$startPositionY + 20 + dvh}
+          );
         }
       }
     }
   }
+}
+
+.circle-container {
+  $particleWidth: 10;
+  $particleNum: 200;
+  $particleColor: hsl(180, 100%, 80%);
+
+  position: absolute;
+  transform: translateY(-10dvh);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  .circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    background-image: radial-gradient(
+      hsl(180, 100%, 80%),
+      hsl(180, 100%, 80%) 10%,
+      hsla(180, 100%, 80%, 0) 56%
+    );
+
+    animation:
+      fadein-frames 200ms infinite,
+      scale-frames 2s infinite;
+
+    @keyframes fade-frames {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes scale-frames {
+      0% {
+        transform: scale3d(0.4, 0.4, 1);
+      }
+
+      50% {
+        transform: scale3d(2.2, 2.2, 1);
+      }
+
+      100% {
+        transform: scale3d(0.4, 0.4, 1);
+      }
+    }
+  }
+
+  @for $i from 1 through $particleNum {
+    &:nth-child(#{$i}) {
+      $circleSize: random($particleWidth);
+      width: $circleSize + px;
+      height: $circleSize + px;
+
+      $startPositionY: random(10) + 100;
+      $framesName: "move-frames-" + $i;
+      $moveDuration: 7000 + random(4000) + ms;
+
+      animation-name: #{$framesName};
+      animation-duration: $moveDuration;
+      animation-delay: random(11000) + ms;
+
+      @keyframes #{$framesName} {
+        from {
+          transform: translate3d(
+            #{random(100) + dvw},
+            #{$startPositionY + dvh},
+            0
+          );
+        }
+
+        to {
+          transform: translate3d(
+            #{random(100) + dvw},
+            #{- $startPositionY - random(30) + dvh},
+            0
+          );
+        }
+      }
+
+      .circle {
+        animation-delay: random(4000) + ms;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+src/routes/6443
+dist
+static
+.svelte-kit
+node_modules
+*.js
+*.scss
+*.ts
+*.json

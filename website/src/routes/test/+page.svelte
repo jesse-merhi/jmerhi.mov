@@ -1,33 +1,68 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { fade, fly } from "svelte/transition";
+  import { sineInOut } from "svelte/easing";
   import "./app.scss";
   // JavaScript logic for creating the circle containers
   let containers: any[] = [];
-  for (let i = 1; i <= 100; i++) {
+  for (let i = 1; i <= 200; i++) {
     containers.push(i);
   }
-  let on1 = [false, false, false];
-  onMount(async () => {
-    await waitForMs(1500);
-    on1[0] = true;
-    await carousel("Hey I'm Jesse!", "line1");
-    await waitForMs(1500);
-    on1[0] = false;
-    on1[1] = true;
-    await carousel("Lets have a chat...", "line2");
-    await waitForMs(1500);
-    on1[1] = false;
-    on1[2] = true;
+  let mounted;
+  let part1 = false;
+  let part2 = true;
+  // Part 4 is code like randomises until it says Jesse Merhi in python or something... IT WOULD BE COOL IF IT LOOKED LIKE IT base64 decoded my name or something :eyes:
 
-    await carousel("Press anywhere on the screen to start", "line3");
-    await waitForMs(1500);
-    on1[2] = false;
+  let on1: bool[] = [true, false, false];
+  let containerWidth;
+  let containerHeight;
+  const lineCount = 20;
+  const minCharCount = 20;
+  const maxCharCount = 40;
+  const topPos = ((maxCharCount - 1) / 2) * 10;
+  let lines = [];
+  function transition1() {
+    if (
+      part1 == true &&
+      on1.every((e) => {
+        console.log(e);
+        console.log(e == false);
+        return e == false;
+      })
+    ) {
+      part1 = false;
+    }
+  }
+  onMount(async () => {
+    if (part1) {
+      await waitForMs(1500);
+      await carousel("Hey I'm Jesse!", "line1");
+      await waitForMs(1000);
+      on1[0] = false;
+      on1[1] = true;
+      await waitForMs(200);
+      await carousel("Lets have a chat...", "line2");
+      await waitForMs(1000);
+      on1[1] = false;
+      on1[2] = true;
+      await waitForMs(200);
+      await carousel("Press anywhere to start.", "line3");
+      await waitForMs(1000);
+      on1[2] = false;
+    } else if (part2) {
+      const container = document.getElementById("background-container");
+      containerWidth = container.offsetWidth;
+      containerHeight = container.offsetHeight;
+      for (let i = 0; i < lineCount; i++) {
+        generateLine(i);
+      }
+    }
   });
 
   async function carousel(carouselList: string, eleRef: string) {
     await typeSentence(carouselList, eleRef);
   }
-  async function typeSentence(sentence: string, eleRef: string, delay = 100) {
+  async function typeSentence(sentence: string, eleRef: string, delay = 80) {
     const letters = sentence.split("");
     let i = 0;
     while (i < letters.length) {
@@ -41,33 +76,112 @@
   function waitForMs(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
+  function random(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function getContent(length) {
+    let result = "";
+    const characters = "01";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  function getTextWidth(text, font) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  function generateLine(index) {
+    const charCount = random(minCharCount, maxCharCount);
+    const opacity = random(6, 9);
+    const position = random(0, containerWidth);
+    const tick = random(300, 500);
+    const content = getContent(charCount);
+    lines = [
+      ...lines,
+      {
+        id: index,
+        content: content,
+        opacity: `0.${opacity}`,
+        left: `${position}px`,
+        top: `-${topPos}px`,
+        textWidth: getTextWidth(content, "bold 16px Consolas") + "px",
+      },
+    ];
+    setTimeout(() => animate(index, charCount, opacity), tick + index * 100);
+  }
+
+  function animate(index, charCount, opacity) {
+    let pos = -topPos;
+    const interval = 1;
+    const id = setInterval(() => {
+      const content = getContent(charCount);
+      const updatedLine = {
+        ...lines[index],
+        content: content,
+        textWidth: getTextWidth(content, "bold 16px Consolas") + "px",
+      };
+
+      lines = [
+        ...lines.slice(0, index),
+        updatedLine,
+        ...lines.slice(index + 1),
+      ];
+    }, 1000);
+  }
 </script>
 
-<div
-  class="text-4xl text-white absolute z-10 w-full h-full flex items-center justify-center"
->
-  <div class="flex items-center justify-center flex-col text-center">
-    <div>
-      <span id="line1"></span>
-      <span id="cursor1" class={on1[0] ? "input-cursor" : ""}></span>
-    </div>
-    <div>
-      <span id="line2"></span>
-      <span id="cursor2" class={on1[1] ? "input-cursor" : ""}></span>
-    </div>
-    <div>
-      <span id="line3"></span>
-      <span id="cursor3" class={on1[2] ? "input-cursor" : ""}></span>
+{#if part1}
+  <div
+    class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center"
+    on:click={transition1}
+    out:fade={{ easing: sineInOut }}
+  >
+    <div class="flex items-center justify-center flex-col text-center">
+      <div class="h-[2rem] sm:h-[2.25rem] w-[80vw]">
+        <span id="line1"></span>
+        <span id="cursor1" class={on1[0] ? "input-cursor h-[35px]" : ""}></span>
+      </div>
+      <div class="h-[2rem] sm:h-[2.25rem] w-[80vw]">
+        <span id="line2"></span>
+        <span id="cursor2" class={on1[1] ? "input-cursor h-[35px]" : ""}></span>
+      </div>
+      <div class="h-[2rem] sm:h-[2.25rem] w-[80vw]">
+        <span id="line3"></span>
+        <span id="cursor3" class={on1[2] ? "input-cursor h-[35px]" : ""}></span>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="container z-0">
-  {#each containers as i}
-    <div class="circle-container">
-      <div class="circle"></div>
-    </div>
-  {/each}
+{/if}
+<div
+  class="background-container z-0"
+  id="background-container"
+  bind:this={mounted}
+>
+  {#if part1}
+    {#each containers as i}
+      <div class="circle-container" out:fade={{ easing: sineInOut }}>
+        <div class="circle"></div>
+      </div>
+    {/each}
+  {/if}
+  {#if part2}
+    {#each lines as line (line.id)}
+      <div
+        class="lines-container"
+        style={`opacity: ${line.opacity}; left: ${line.left}; top: ${line.top};`}
+      >
+        <div class="lines">{line.content}</div>
+      </div>
+    {/each}
+  {/if}
 </div>
 
 <style>
@@ -75,7 +189,6 @@
     position: absolute;
     display: inline-block;
     width: 2px;
-    height: 42px;
     background-color: white;
     margin-left: 8px;
     animation: blink 0.4s linear infinite alternate;
@@ -84,12 +197,15 @@
     0% {
       opacity: 1;
     }
+
     40% {
       opacity: 1;
     }
+
     60% {
       opacity: 0;
     }
+
     100% {
       opacity: 0;
     }
