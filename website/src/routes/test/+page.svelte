@@ -9,8 +9,8 @@
     containers.push(i);
   }
   let mounted;
-  let part1 = false;
-  let part2 = true;
+  let part1 = true;
+  let part2 = false;
   // Part 4 is code like randomises until it says Jesse Merhi in python or something... IT WOULD BE COOL IF IT LOOKED LIKE IT base64 decoded my name or something :eyes:
 
   let on1: boolean[] = [true, false, false];
@@ -29,6 +29,7 @@
       })
     ) {
       part1 = false;
+      part2 = true;
     }
   }
   onMount(async () => {
@@ -53,6 +54,12 @@
       }
     }
   });
+
+  $: if (part2) {
+    for (let i = 0; i < lineCount; i++) {
+      generateLine(i);
+    }
+  }
 
   async function carousel(carouselList: string, eleRef: string) {
     await typeSentence(carouselList, eleRef);
