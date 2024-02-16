@@ -11,6 +11,7 @@ outputs: ["Reveal"]
 {{< slide class="center" >}}
 # week01
 ### COMP6443
+### Thanks @melon for the slides
 
 ---
 
