@@ -22,7 +22,7 @@ jobs:
 
       - name: Build Hugo
         working-directory: ./slides
-        run: hugo --gc --minify --cleanDestinationDir -d ../website/public/6443/
+        run: hugo --gc --minify --cleanDestinationDir -d ../website/static/6443/
 
       - name: Download Bun
         uses: oven-sh/setup-bun@v1
