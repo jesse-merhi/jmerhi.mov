@@ -53,7 +53,8 @@ body {
       font-size: random(10) + 10 + px;
       animation-name: #{$framesName};
       animation-duration: $moveDuration;
-      animation-delay: random(11000) + 5000 + ms;
+      // For other animations, use the random delay
+      animation-delay: random(1000) * $i * 2 + ms;
       $hor-position: random(92);
       @keyframes #{$framesName} {
         from {

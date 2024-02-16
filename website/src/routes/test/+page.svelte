@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
   import { sineInOut } from "svelte/easing";
+  import Icon from "@iconify/svelte";
   import "./app.scss";
   // JavaScript logic for creating the circle containers
   let containers: any[] = [];
@@ -9,10 +10,10 @@
     containers.push(i);
   }
   let mounted;
-  let part1 = true;
-  let part2 = false;
-  // Part 4 is code like randomises until it says Jesse Merhi in python or something... IT WOULD BE COOL IF IT LOOKED LIKE IT base64 decoded my name or something :eyes:
-
+  let part1 = false;
+  let part2 = true;
+  let part2_1 = false;
+  let message_clicked = false;
   let on1: boolean[] = [true, false, false];
   const lineCount = 10;
   const minCharCount = 20;
@@ -32,6 +33,11 @@
       part2 = true;
     }
   }
+
+  function change_message() {
+    part2_1=true;
+
+  }
   onMount(async () => {
     if (part1) {
       await waitForMs(1500);
@@ -48,14 +54,14 @@
       await carousel("Press anywhere to start.", "line3");
       await waitForMs(1000);
       on1[2] = false;
-    } else if (part2) {
+    } else if (part2 && lines.length == 0) {
       for (let i = 0; i < lineCount; i++) {
         generateLine(i);
       }
     }
   });
 
-  $: if (part2) {
+  $: if (part2 && lines.length == 0) {
     for (let i = 0; i < lineCount; i++) {
       generateLine(i);
     }
@@ -100,6 +106,7 @@
       ...lines,
       {
         id: index,
+        styles: {},
         content: content,
       },
     ];
@@ -149,20 +156,43 @@
   </div>
 {/if}
 {#if part2}
-<div class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center">
-<div class="text-white"> MAIL </div>
-<div class="flex items-start gap-2.5">
-  <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="Jese image">
-  <div class="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
-     <div class="flex items-center space-x-2 rtl:space-x-reverse">
-        <span class="text-sm font-semibold text-gray-900 dark:text-white">Bonnie Green</span>
-        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">11:46</span>
-     </div>
-     <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">That's awesome. I think our users will really appreciate the improvements.</p>
-     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Delivered</span>
+  <div
+    class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center flex-col"
+  >
+    {#if !part2_1}
+      <div  class="text-white absolute" on:click={change_message}>
+        <div in:fade={{ easing: sineInOut }} out:fade={{ easing: sineInOut }} class=" cursor-pointer w-[100px] active:w-[90px] hover:w-[110px] transition-all text-neutral-100 hover:text-white">
+        <Icon  icon="mdi:message-badge" width="100%" ></Icon>
+        </div>
+      </div>
+    {:else}
+    <div class="flex items-stretch gap-2.5 max-w-[350px] mb-4" in:fly={{delay:1000,duration:1000,easing:sineInOut,y:"50vh"}}>
+     
+      <div
+        class="flex flex-col w-full  leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700"
+      >
+        <div class="flex items-center space-x-2 rtl:space-x-reverse">
+          <span class="text-sm font-semibold text-gray-900 dark:text-white"
+            >Jesse</span
+          >
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
+            >now</span
+          >
+        </div>
+        <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
+          Alright... lets start with something simple. What's your name? 
+        </p>
+      </div>
+    </div>
+    <div class='w-[350px] flex flex-row ' in:fly={{delay:3000,duration:1000,easing:sineInOut,y:"50vh"}}>
+      <input id="their-name" aria-describedby="helper-text-explanation" class="w-[88%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Your name here...">
+      <button type="button" class="text-white w-[42px] h-[42px]  bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2">
+        <Icon icon="mdi:arrow-right" width="100%" ></Icon>
+        <span class="sr-only">Icon description</span>
+        </button>
+    </div>
+      {/if}
   </div>
-</div>
-</div>
 {/if}
 <div
   class="background-container z-0"
@@ -179,7 +209,7 @@
   {#if part2}
     {#each lines as line}
       <div class="lines-container">
-        <div class="lines">{line.content}</div>
+        <div class="lines select-none">{line.content}</div>
       </div>
     {/each}
   {/if}
