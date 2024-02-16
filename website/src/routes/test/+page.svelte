@@ -5,22 +5,20 @@
   import "./app.scss";
   // JavaScript logic for creating the circle containers
   let containers: any[] = [];
-  for (let i = 1; i <= 200; i++) {
+  for (let i = 1; i <= 100; i++) {
     containers.push(i);
   }
   let mounted;
-  let part1 = false;
-  let part2 = true;
+  let part1 = true;
+  let part2 = false;
   // Part 4 is code like randomises until it says Jesse Merhi in python or something... IT WOULD BE COOL IF IT LOOKED LIKE IT base64 decoded my name or something :eyes:
 
-  let on1: bool[] = [true, false, false];
-  let containerWidth;
-  let containerHeight;
-  const lineCount = 20;
+  let on1: boolean[] = [true, false, false];
+  const lineCount = 10;
   const minCharCount = 20;
   const maxCharCount = 40;
   const topPos = ((maxCharCount - 1) / 2) * 10;
-  let lines = [];
+  let lines: any[] = [];
   function transition1() {
     if (
       part1 == true &&
@@ -31,6 +29,7 @@
       })
     ) {
       part1 = false;
+      part2 = true;
     }
   }
   onMount(async () => {
@@ -50,14 +49,17 @@
       await waitForMs(1000);
       on1[2] = false;
     } else if (part2) {
-      const container = document.getElementById("background-container");
-      containerWidth = container.offsetWidth;
-      containerHeight = container.offsetHeight;
       for (let i = 0; i < lineCount; i++) {
         generateLine(i);
       }
     }
   });
+
+  $: if (part2) {
+    for (let i = 0; i < lineCount; i++) {
+      generateLine(i);
+    }
+  }
 
   async function carousel(carouselList: string, eleRef: string) {
     await typeSentence(carouselList, eleRef);
@@ -90,18 +92,8 @@
     return result;
   }
 
-  function getTextWidth(text, font) {
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-  }
-
   function generateLine(index) {
     const charCount = random(minCharCount, maxCharCount);
-    const opacity = random(6, 9);
-    const position = random(0, containerWidth);
     const tick = random(300, 500);
     const content = getContent(charCount);
     lines = [
@@ -109,24 +101,17 @@
       {
         id: index,
         content: content,
-        opacity: `0.${opacity}`,
-        left: `${position}px`,
-        top: `-${topPos}px`,
-        textWidth: getTextWidth(content, "bold 16px Consolas") + "px",
       },
     ];
-    setTimeout(() => animate(index, charCount, opacity), tick + index * 100);
+    setTimeout(() => animate(index, charCount), tick + index * 100);
   }
 
-  function animate(index, charCount, opacity) {
-    let pos = -topPos;
-    const interval = 1;
-    const id = setInterval(() => {
+  function animate(index, charCount) {
+    setInterval(() => {
       const content = getContent(charCount);
       const updatedLine = {
         ...lines[index],
         content: content,
-        textWidth: getTextWidth(content, "bold 16px Consolas") + "px",
       };
 
       lines = [
@@ -142,6 +127,9 @@
   <div
     class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center"
     on:click={transition1}
+    role="link"
+    tabindex="0"
+    on:keypress={transition1}
     out:fade={{ easing: sineInOut }}
   >
     <div class="flex items-center justify-center flex-col text-center">
@@ -189,11 +177,8 @@
     {/each}
   {/if}
   {#if part2}
-    {#each lines as line (line.id)}
-      <div
-        class="lines-container"
-        style={`opacity: ${line.opacity}; left: ${line.left}; top: ${line.top};`}
-      >
+    {#each lines as line}
+      <div class="lines-container">
         <div class="lines">{line.content}</div>
       </div>
     {/each}
