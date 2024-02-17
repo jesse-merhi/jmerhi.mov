@@ -35,8 +35,7 @@
   }
 
   function change_message() {
-    part2_1=true;
-
+    part2_1 = true;
   }
   onMount(async () => {
     if (part1) {
@@ -160,38 +159,56 @@
     class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center flex-col"
   >
     {#if !part2_1}
-      <div  class="text-white absolute" on:click={change_message}>
-        <div in:fade={{ easing: sineInOut }} out:fade={{ easing: sineInOut }} class=" cursor-pointer w-[100px] active:w-[90px] hover:w-[110px] transition-all text-neutral-100 hover:text-white">
-        <Icon  icon="mdi:message-badge" width="100%" ></Icon>
+      <div class="text-white absolute" on:click={change_message}>
+        <div
+          in:fade={{ easing: sineInOut }}
+          out:fade={{ easing: sineInOut }}
+          class=" cursor-pointer w-[100px] active:w-[90px] hover:w-[110px] transition-all text-neutral-100 hover:text-white"
+        >
+          <Icon icon="mdi:message-badge" width="100%"></Icon>
         </div>
       </div>
     {:else}
-    <div class="flex items-stretch gap-2.5 max-w-[350px] mb-4" in:fly={{delay:1000,duration:1000,easing:sineInOut,y:"50vh"}}>
-     
       <div
-        class="flex flex-col w-full  leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700"
+        class="flex items-stretch gap-2.5 max-w-[350px] mb-4 "
+        in:fly={{ delay: 1000, duration: 1000, easing: sineInOut, y: "50vh" }}
+        
       >
-        <div class="flex items-center space-x-2 rtl:space-x-reverse">
-          <span class="text-sm font-semibold text-gray-900 dark:text-white"
-            >Jesse</span
-          >
-          <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
-            >now</span
-          >
+        <div
+          class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
+        >
+          <div class="flex items-center space-x-2 rtl:space-x-reverse">
+            <span class="text-sm font-semibold text-gray-900 dark:text-white"
+              >Jesse</span
+            >
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
+              >now</span
+            >
+          </div>
+          <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
+            Alright... lets start with something simple. What's your name?
+          </p>
         </div>
-        <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-          Alright... lets start with something simple. What's your name? 
-        </p>
       </div>
-    </div>
-    <div class='w-[350px] flex flex-row ' in:fly={{delay:3000,duration:1000,easing:sineInOut,y:"50vh"}}>
-      <input id="their-name" aria-describedby="helper-text-explanation" class="w-[88%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Your name here...">
-      <button type="button" class="text-white w-[42px] h-[42px]  bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2">
-        <Icon icon="mdi:arrow-right" width="100%" ></Icon>
-        <span class="sr-only">Icon description</span>
+      <div
+        class="w-[350px] flex flex-row"
+        in:fly={{ delay: 3000, duration: 1000, easing: sineInOut, y: "50vh" }}
+      >
+        <input
+          id="their-name"
+          aria-describedby="helper-text-explanation"
+          class="w-[88%] z-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Your name here..."
+        />
+        <button
+          type="button"
+          class="text-white w-[42px] h-[42px] bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2"
+        >
+          <Icon icon="mdi:arrow-right" width="100%"></Icon>
+          <span class="sr-only">Icon description</span>
         </button>
-    </div>
-      {/if}
+      </div>
+    {/if}
   </div>
 {/if}
 <div
