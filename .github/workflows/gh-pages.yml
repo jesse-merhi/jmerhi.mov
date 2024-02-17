@@ -38,7 +38,7 @@ jobs:
         run: bun run build
 
       - name: Copy Cloudflare Functions
-        run: cp -r ./functions ./website/static/
+        run: cp -r ./functions ./website/dist/
         
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
