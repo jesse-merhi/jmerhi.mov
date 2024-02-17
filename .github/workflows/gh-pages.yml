@@ -10,7 +10,7 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
         with:
           submodules: true
           
@@ -36,6 +36,9 @@ jobs:
       - name: Bun build
         working-directory: ./website
         run: bun run build
+
+      - name: Copy Cloudflare Functions
+        run: cp -r ./functions ./website/dist/
         
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
@@ -43,9 +46,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./website/dist
-      
-      - name: Deploy Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          workingDirectory: "./backend"
