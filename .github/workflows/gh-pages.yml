@@ -36,6 +36,9 @@ jobs:
       - name: Bun build
         working-directory: ./website
         run: bun run build
+
+      - name: Copy Cloudflare Functions
+        run: cp -r ./functions ./website/static/
         
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
