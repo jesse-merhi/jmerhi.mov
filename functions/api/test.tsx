@@ -1,6 +1,6 @@
 export async function onRequestPost(context) {
   const data = await context.request.json();
-  const name = JSON.stringify(data)["name"];
+  const name = JSON.stringify(data);
   const url =
     'https://gateway.ai.cloudflare.com/v1/0d425b8c2c85b36f347df36146f713ed/gpt-gateway/openai/chat/completions';
   const accessToken = context.env.OPENAI_API;
@@ -27,7 +27,7 @@ export async function onRequestPost(context) {
 
   return fetch(url, requestData)
     .then((response) => response.json())
-    .then((data) => new Response(`${JSON.stringify(data)} ${name} ${accessToken}`))
+    .then((data) => new Response(`${JSON.stringify(data)} ${name}`))
     .catch((error) =>  error);
 
   return new Response(`This is a local environment! ${context.env.TEST}`);
