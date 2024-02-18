@@ -11,11 +11,17 @@ export async function onRequestPost(context) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4-turbo',
       messages: [
         {
           role: 'system',
-          content: 'Your job is to determine if the name provided by the user is real or fake. If the name is real, return nothing. If the name is fake, then give a snide remark about it being fake.',
+          content: `Your job is to determine if the name provided by the user is a real name that a human would have! Nice and simple. 
+
+          Steps:
+          1. If the name is real, return a blank string. 
+          2. If the name is fake, then give a snide remark about it being fake.
+          3. If the user doesnt enter a name (or tries to converse), just return a remark about how they need to enter a real name.
+          `,
         },
         {
           role:"user",
@@ -29,6 +35,4 @@ export async function onRequestPost(context) {
     .then((response) => response.json())
     .then((data) => new Response(`${JSON.stringify(data)} ${name}`))
     .catch((error) =>  error);
-
-  return new Response(`This is a local environment! ${context.env.TEST}`);
 }
