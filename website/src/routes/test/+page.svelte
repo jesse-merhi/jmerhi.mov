@@ -10,6 +10,7 @@
     containers.push(i);
   }
   let mounted;
+  let name = "";
   let part1 = false;
   let part2 = true;
   let part2_1 = false;
@@ -19,6 +20,21 @@
   const minCharCount = 20;
   const maxCharCount = 40;
   const topPos = ((maxCharCount - 1) / 2) * 10;
+
+  async function chatgpt_names() {
+    const response = await fetch("/api/gpt/name", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+      }),
+    });
+    const name_response = await response.text();
+    console.log(name_response);
+  }
+
   let lines: any[] = [];
   function transition1() {
     if (
@@ -170,9 +186,8 @@
       </div>
     {:else}
       <div
-        class="flex items-stretch gap-2.5 max-w-[350px] mb-4 "
+        class="flex items-stretch gap-2.5 max-w-[350px] mb-4"
         in:fly={{ delay: 1000, duration: 1000, easing: sineInOut, y: "50vh" }}
-        
       >
         <div
           class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
@@ -199,9 +214,11 @@
           aria-describedby="helper-text-explanation"
           class="w-[88%] z-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Your name here..."
+          bind:value={name}
         />
         <button
           type="button"
+          on:click={chatgpt_names}
           class="text-white w-[42px] h-[42px] bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2"
         >
           <Icon icon="mdi:arrow-right" width="100%"></Icon>
