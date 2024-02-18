@@ -1,5 +1,4 @@
 export function onRequestPost(context) {
-  const fetch = require('node-fetch');
   return new Response(`${context.request}`);
   const url =
     'https://gateway.ai.cloudflare.com/v1/0d425b8c2c85b36f347df36146f713ed/gpt-gateway/openai/chat/completions';
