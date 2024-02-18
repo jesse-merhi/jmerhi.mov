@@ -27,7 +27,7 @@ export async function onRequestPost(context) {
 
   return fetch(url, requestData)
     .then((response) => response.json())
-    .then((data) => new Response(`This is a local environment! ${JSON.stringify(data)}`))
+    .then((data) => new Response(`${JSON.stringify(data)} ${name} ${accessToken}`))
     .catch((error) =>  error);
 
   return new Response(`This is a local environment! ${context.env.TEST}`);
