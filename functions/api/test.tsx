@@ -1,5 +1,6 @@
-export function onRequestPost(context) {
-  return new Response(`${context.request.json()}`);
+export async function onRequestPost(context) {
+  const data = await context.request.json()
+  return new Response(`${data}`);
   const url =
     'https://gateway.ai.cloudflare.com/v1/0d425b8c2c85b36f347df36146f713ed/gpt-gateway/openai/chat/completions';
   const accessToken = context.env.OPENAI_API;
