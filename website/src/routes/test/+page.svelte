@@ -11,9 +11,9 @@
   }
   let mounted;
   let name = "";
-  let part1 = false;
+  let part1 = true;
   let gpt_response: string = "";
-  let part2 = true;
+  let part2 = false;
   let part2_1 = false;
   let message_clicked = false;
   let on1: boolean[] = [true, false, false];
