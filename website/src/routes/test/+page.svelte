@@ -34,7 +34,7 @@
     });
     const name_response = await response.text();
     console.log(name_response);
-    if (gpt_response == "") {
+    if (name_response == "") {
       gpt_response = `Well hey there ${name}! Nice to meet you...`;
     } else {
       gpt_response = name_response;
