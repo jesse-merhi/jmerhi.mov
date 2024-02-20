@@ -181,10 +181,15 @@
     class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center flex-col"
   >
     {#if !part2_1}
-      <div class="text-white absolute" on:click={change_message}>
+      <div
+        class="text-white absolute"
+        on:click={change_message}
+        on:keypress={change_message}
+        aria="modal"
+        in:fade={{ easing: sineInOut, delay: 2000 }}
+        out:fade={{ easing: sineInOut }}
+      >
         <div
-          in:fade={{ easing: sineInOut, delay: 2000 }}
-          out:fade={{ easing: sineInOut }}
           class=" cursor-pointer w-[100px] active:w-[90px] hover:w-[110px] transition-all text-neutral-100 hover:text-white"
         >
           <Icon icon="mdi:message-badge" width="100%"></Icon>
