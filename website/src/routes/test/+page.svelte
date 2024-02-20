@@ -178,6 +178,7 @@
 {/if}
 {#if part2}
   <div
+    in:fade={{ easing: sineInOut, delay: 2000 }}
     class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center flex-col"
   >
     {#if !part2_1}
@@ -185,7 +186,6 @@
         class="text-white absolute"
         on:click={change_message}
         on:keypress={change_message}
-        aria="modal"
         in:fade={{ easing: sineInOut, delay: 2000 }}
         out:fade={{ easing: sineInOut }}
       >
