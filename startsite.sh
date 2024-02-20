@@ -1,0 +1,1 @@
+cd website && bun run dev

@@ -11,20 +11,20 @@ RUN apt-get update && \
 # Define the Hugo version
 
 # Download and install Hugo
-RUN wget https://github.com/gohugoio/hugo/releases/download/v0.122.0/hugo_extended_0.122.0_linux-amd64.deb && \
-    dpkg -i hugo_extended_0.122.0_linux-amd64.deb
+RUN wget https://github.com/gohugoio/hugo/releases/download/v0.122.0/hugo_extended_0.122.0_linux-arm64.deb && \
+    dpkg -i hugo_extended_0.122.0_linux-arm64.deb
 
 # Copy the current directory contents into the container
 COPY ./slides ./slides
 
 # Build the Hugo site
-RUN cd ./slides && hugo --gc --minify --cleanDestinationDir -d ../website/dist/6443/
+RUN cd ./slides && hugo --gc --minify --cleanDestinationDir -d ../website/static/6443/
 
 FROM oven/bun:latest
 WORKDIR /usr/src/app/website
 COPY ./website/package.json ./
 # Build the website
-RUN bun install 
+RUN bun install
 
 COPY ./website ./
 

@@ -1,11 +1,9 @@
 # Example
-
 > There's a couple different ways to send requests to Quoccabank
 
 &nbsp;
 
 ## directly
-
 ```python
 import requests, urllib3, re
 
@@ -30,10 +28,9 @@ print(page.text)
 &nbsp;
 
 ## Proxying through BurpSuite
-
-- This has the benefit of allowing you to use BurpSuite to
-  - intercept the requests
-  - view the history of your requests
+* This has the benefit of allowing you to use BurpSuite to
+	* intercept the requests
+	* view the history of your requests
 
 ```python
 import requests, urllib3, re
@@ -57,7 +54,7 @@ print(cookie)
 # now we can use that cookie, and send it to another page maybe?
 page = requests.get(
 	"https://quoccabank.com/view/",
-	proxies = proxy,
+	proxies = proxy, 
 	verify = False,
 	cookies = { 'session': cookie }
 )
@@ -67,10 +64,9 @@ print(page.text)
 &nbsp;
 
 ## request.session
-
-- Using a requests session allows you to maintain a persistent session
-- You won't need to explicitly include your credentials with every request
-- This would also work with the certs, just use `s.certs = (...)` from above
+* Using a requests session allows you to maintain a persistent session
+* You won't need to explicitly include your credentials with every request
+* This would also work with the certs, just use `s.certs = (...)` from above
 
 ```python
 import requests, urllib3, re

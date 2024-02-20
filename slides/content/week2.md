@@ -4,7 +4,7 @@ layout: "bundle"
 outputs: ["Reveal"]
 ---
 
-## We'll get started at 18:05
+## We'll get started at 18:05ss 
 
 ---
 

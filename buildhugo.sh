@@ -1,0 +1,1 @@
+cd slides && hugo --gc --minify --cleanDestinationDir -d ../website/static/6443/ --watch

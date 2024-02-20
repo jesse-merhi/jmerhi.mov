@@ -2,19 +2,19 @@ export async function onRequestPost(context) {
   const data = await context.request.json();
   const name = JSON.stringify(data);
   const url =
-    'https://gateway.ai.cloudflare.com/v1/0d425b8c2c85b36f347df36146f713ed/gpt-gateway/openai/chat/completions';
+    "https://gateway.ai.cloudflare.com/v1/0d425b8c2c85b36f347df36146f713ed/gpt-gateway/openai/chat/completions";
   const accessToken = context.env.OPENAI_API;
   const requestData = {
-    method: 'POST',
+    method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: 'gpt-4-0125-preview',
+      model: "gpt-4-0125-preview",
       messages: [
         {
-          role: 'system',
+          role: "system",
           content: `Your job is to determine if the name provided by the user is a real name that a human would have! Nice and simple. 
 
           Steps:
@@ -24,15 +24,18 @@ export async function onRequestPost(context) {
           `,
         },
         {
-          role:"user",
-          content: name
-        }
+          role: "user",
+          content: name,
+        },
       ],
     }),
   };
 
   return fetch(url, requestData)
     .then((response) => response.json())
-    .then((data) => new Response(JSON.stringify(data)["choices"][0]["message"]["content"]))
-    .catch((error) =>  error);
+    .then(
+      (data) =>
+        new Response(JSON.stringify(data)["choices"][0]["message"]["content"])
+    )
+    .catch((error) => new Response(JSON.stringify(error)));
 }
