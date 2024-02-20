@@ -183,7 +183,7 @@
     {#if !part2_1}
       <div class="text-white absolute" on:click={change_message}>
         <div
-          in:fade={{ easing: sineInOut }}
+          in:fade={{ easing: sineInOut, delay: 2000 }}
           out:fade={{ easing: sineInOut }}
           class=" cursor-pointer w-[100px] active:w-[90px] hover:w-[110px] transition-all text-neutral-100 hover:text-white"
         >

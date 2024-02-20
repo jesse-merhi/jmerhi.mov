@@ -53,9 +53,6 @@ export async function onRequestPost(context) {
 
   return fetch(url, requestData)
     .then((response) => response.json())
-    .then(
-      (data) =>
-        new Response(JSON.stringify(data["choices"][0]["message"]["content"]))
-    )
+    .then((data) => new Response(data["choices"][0]["message"]["content"]))
     .catch((error) => new Response(JSON.stringify(error)));
 }
