@@ -1,6 +1,6 @@
 export async function onRequestPost(context) {
   const data = await context.request.json();
-  const name = JSON.stringify(data);
+  const name = JSON.stringify(data.name);
   if (name.length >= 50) {
     return new Response(
       JSON.stringify(
@@ -19,17 +19,7 @@ export async function onRequestPost(context) {
     },
     body: JSON.stringify({
       model: "gpt-4-0125-preview",
-      stop: [
-        "\n",
-        "Human: ",
-        "AI: ",
-        "System: ",
-        "Jailbreak",
-        "TL;DR",
-        "tl;dr",
-        "tl",
-        "dr",
-      ],
+      stop: "#",
       messages: [
         {
           role: "system",
