@@ -12,6 +12,7 @@
   let mounted;
   let name = "";
   let part1 = false;
+  let gpt_response: string = "";
   let part2 = true;
   let part2_1 = false;
   let message_clicked = false;
@@ -33,6 +34,11 @@
     });
     const name_response = await response.text();
     console.log(name_response);
+    if (gpt_response == "") {
+      gpt_response = `Well hey there ${name}! Nice to meet you...`;
+    } else {
+      gpt_response = name_response;
+    }
   }
 
   let lines: any[] = [];
@@ -226,6 +232,7 @@
           <span class="sr-only">Icon description</span>
         </button>
       </div>
+      <div>{gpt_response}</div>
     {/if}
   </div>
 {/if}
