@@ -1,5 +1,6 @@
 <script>
   import Layout from "../__layout.svelte";
+  let max_week = 2;
 </script>
 
 <Layout>
@@ -10,11 +11,15 @@
       >
         Slides
       </h1>
-      <ul class="list-disc">
-        <li>
-          <a class="underline" href="/6443/week1"> Week 1 </a>
-        </li>
-      </ul>
+      {#each Array(max_week).keys() as week}
+        <ul class="list-disc">
+          <li>
+            <a class="underline" href="/6443/week{week + 1}">
+              Week {week + 1}
+            </a>
+          </li>
+        </ul>
+      {/each}
     </div>
     <div class="m-10">
       <h1

@@ -4,48 +4,49 @@ layout: "bundle"
 outputs: ["Reveal"]
 ---
 
-## We'll get started at 18:05ss 
+## We'll get started at 5 past!
 
 ---
 
 {{< slide class="center" >}}
 # Week02
-### COMP6443 H18A
+### COMP6443
+### Thanks @melon for the slides
+
 
 ---
-
-## admin stuff
-
 {{% section %}}
-
-## Presentations
-* Bonus marks!
-* Talk about something cool (security related), you've seen in the last week
-* Around 10 minutes
-
+# What happened this Week?
 ---
 
 ## Challenges
-* How are you finding this week's challenges?
-* For each set of challenges, I'll say which I think are worthwhile. *This week: all of them lol*
-
----
-
-## Walkthroughs
-* Present your solution for some of the challenges
-* Only the harder ones (maybe some of files/blog) 
+* This week is not like last - it's pretty hard. But don't give up!
+* All of the challenges from this week forward ARE REALLY VALUABLE
 
 ---
 
 ## Reports
-* Keep it businessy & use a real vulnerability scoring system (e.g CVE), and framework (e.g NIST)
-* "We recommend you keep a record of the vulnerabilities you have found. Most pen-testers will be required to write a report after a 'penetration assessment', and you will too during this semester!" - Topic 03 challenges on OL
+* Reports are really cool! They tell you,
+1. How you found a vulnerability.
+2. How bad it is.
+3. How to fix it.
+* You will be doing this TWICE. 
+
+* Keep track of how you are doing things - especially now that challenges are not one step.
 
 ---
 
 ## Some example reports
-* [an example](https://docs.google.com/document/d/1s12Off74DZ8RcELdqdeZSxJTMkbN6l4MHtolwTUrnrU/edit)
-* [some more examples](https://github.com/juliocesarfort/public-pentesting-reports)
+* [Darkage 6443 report](https://docs.google.com/document/d/1s12Off74DZ8RcELdqdeZSxJTMkbN6l4MHtolwTUrnrU/edit)
+* [Actual Pentest Reports](https://github.com/juliocesarfort/public-pentesting-reports)
+
+--- 
+
+# MAKE THEM FUN
+
+--- 
+
+![test](/assets/img/week02/example_meme.png)
 
 {{% /section %}}
 
@@ -54,37 +55,69 @@ outputs: ["Reveal"]
 ## lecture content
 
 {{% section %}}
+--- 
 
-* http/s & tls
-* authentication
-    * what is cookie?
-    * what is jwt [jwt.io](https://jwt.io)
-* authentication vs authorization
+## What happened in the lecture?
 
 ---
 
-### what is auth...
-* authentication: who are you?
-* authorization: what are you allowed to do?
+## Challenge Topic for this Week
+* This week we are looking at AuthN and AuthZ... Anyone know what they are?
 
 ---
 
-### cookies
-* pieces of text sent by websites to your browser.
-* help the website remember information about you
-* a sense of **persistence**
+Authentication: You are who you say you are.
+
+Authorization: You are only allowed to do, what you should be allowed to do.
+
+* What are some real world examples?
 
 ---
 
-### why do I care
-> often used to store session data
-* session tokens (e.g. Flask/Express)
-* JWT (JSON Web Token)
-* username=melon;password=Hunter2
+{{% fragment %}}Concert Tickets{{% /fragment %}}    
+{{% fragment %}}Membership Card{{% /fragment %}}
+{{% fragment %}}UNSW Id{{% /fragment %}}
+
+{{% fragment %}}Authentication tells you that you are allowed in.{{% /fragment %}}
+{{% fragment %}}Authorization tells you where you can go once you are in.{{% /fragment %}}
+
+___
+
+# How do we Authenticate in Websites?
+
+.... username and passwords.
+
+What are some common ones? 
+
+* admin:admin
+* admin:password
+* For this course? Probs quocca related things.
+
+* If you are working with a well known library, go look for default credentials!
+
+___
+
+# So when we Authenticate... How do we keep people Authenticated? 
 
 ---
 
-### hacking cookies
+### Cookies!
+* A big ol' string that stores some information (usually)
+* Helps the website remember who you are. 
+* Ever wondered how it knows who you are every time? Probably was a cookie.
+
+---
+
+### If Bad: Bad.
+> Cookies store session information. So if they are *HACKED* then its bad.
+
+Types of Cookies: 
+* Session tokens (e.g. Flask/Express)
+* [JWT (JSON Web Token)](https://jwt.io)
+
+---
+
+### How-to-hack: Cookies
 * stealing cookies
     * cross-site scripting (XSS) [week7/8]
     * MITM attacks

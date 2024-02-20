@@ -9,19 +9,25 @@
   for (let i = 1; i <= 100; i++) {
     containers.push(i);
   }
-  let mounted;
+  let mounted = false;
   let name = "";
-  let part1 = true;
+  let part1 = false;
   let gpt_response: string = "";
-  let part2 = false;
+  let part2 = true;
   let part2_1 = false;
   let message_clicked = false;
-  let on1: boolean[] = [true, false, false];
+  let on1: boolean[] = [true, false, false, false];
   const lineCount = 10;
   const minCharCount = 20;
   const maxCharCount = 40;
   const topPos = ((maxCharCount - 1) / 2) * 10;
-
+  $: if (!part2_1 && part2 && mounted) {
+    waitForMs(2500)
+      .then(() => (on1[3] = true))
+      .then(() => waitForMs(1000))
+      .then(() => carousel("Message Recieved.", "line4"))
+      .then(() => (on1[3] = false));
+  }
   async function chatgpt_names() {
     const response = await fetch("/api/gpt/name", {
       method: "POST",
@@ -32,6 +38,11 @@
         name: name,
       }),
     });
+    if (response.status != 200) {
+      gpt_response =
+        "Sorry, I'm having trouble connecting to the server. Please try again later.";
+      return;
+    }
     const name_response = await response.text();
     console.log(name_response);
     if (name_response == "") {
@@ -60,6 +71,7 @@
     part2_1 = true;
   }
   onMount(async () => {
+    mounted = true;
     if (part1) {
       await waitForMs(1500);
       await carousel("Hey I'm Jesse!", "line1");
@@ -95,9 +107,11 @@
     const letters = sentence.split("");
     let i = 0;
     while (i < letters.length) {
-      document.getElementById(eleRef)!.innerHTML += letters[i];
-      await waitForMs(delay);
-      i++;
+      if (typeof document != undefined) {
+        document.getElementById(eleRef)!.innerHTML += letters[i];
+        await waitForMs(delay);
+        i++;
+      }
     }
     return;
   }
@@ -183,7 +197,7 @@
   >
     {#if !part2_1}
       <div
-        class="text-white absolute"
+        class="text-white absolute flex items-center justify-center flex-col"
         on:click={change_message}
         on:keypress={change_message}
         in:fade={{ easing: sineInOut, delay: 2000 }}
@@ -193,6 +207,11 @@
           class=" cursor-pointer w-[100px] active:w-[90px] hover:w-[110px] transition-all text-neutral-100 hover:text-white"
         >
           <Icon icon="mdi:message-badge" width="100%"></Icon>
+        </div>
+        <div class="h-[2rem] sm:h-[2.25rem]">
+          <span id="line4"></span>
+          <span id="cursor4" class={on1[3] ? "input-cursor h-[35px]" : ""}
+          ></span>
         </div>
       </div>
     {:else}
@@ -211,7 +230,9 @@
               >now</span
             >
           </div>
-          <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
+          <p
+            class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white"
+          >
             Alright... lets start with something simple. What's your name?
           </p>
         </div>
@@ -223,7 +244,7 @@
         <input
           id="their-name"
           aria-describedby="helper-text-explanation"
-          class="w-[88%] z-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="w-[88%] z-20 bg-gray-50 border md:text-lg border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Your name here..."
           bind:value={name}
           on:mousedown={(e) => {}}
@@ -231,7 +252,7 @@
         <button
           type="button"
           on:click={chatgpt_names}
-          class="text-white w-[42px] h-[42px] bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2"
+          class="text-white w-[42px] h-[42px] md:w-[50px] md:h-[50px] bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center"
         >
           <Icon icon="mdi:arrow-right" width="100%"></Icon>
           <span class="sr-only">Icon description</span>
