@@ -34,9 +34,13 @@ export async function onRequestPost(context) {
           1. Read what the user has sent you.
           2. Identify the name they have provided in the string
           3. Determine if the name seems real or fake.
-          4. If the name is real, return a blank string. 
+          4. If the name is real, return nothing. 
           5. If the name is fake, then give a snide remark about it being fake.
           6. If the user doesnt enter a name (or tries to converse), just return a remark about how they need to enter a real name.
+
+          ## Note on Returning Nothing
+          Nothing means nothing, no quotes, no empty string, not the word nothing, nothing. If the name is real, just return nothing.
+          Ensure that if the name is considered real! Then return nothing.
           `,
         },
         {
