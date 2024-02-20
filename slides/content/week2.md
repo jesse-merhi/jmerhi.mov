@@ -118,31 +118,27 @@ Types of Cookies:
 ---
 
 ### How-to-hack: Cookies
-* stealing cookies
-    * cross-site scripting (XSS) [week7/8]
+* Modifying them (more on that soon)
+* Stealing Cookies.. done though,
+    * Cross-site scripting (XSS) [week7/8]
     * MITM attacks
-    * cross-site request forgery (CSRF) [week7/8]
-* forging cookies (called "baking")
-* ~~accidentally~~ showing your cookies on screen during the tute (who would do that?? haha)
+    * Cross-site request forgery (CSRF) [week7/8]
+* Forging cookies (called "baking")
 
 ---
 
-## securing cookies
-* http-only (prevents XSS)
+## Securing Cookies (Options)
+* HTTP-only (prevents XSS)
 * secure (prevents MITM)
 * same origin (prevents CSRF)
 * expiry
 
 ---
 
-## demo
-> authentication stuffs
+## Demo
+* [Basic Cookies](http://mercury.picoctf.net:17781)
 
-* plsplsplswork
-
----
-
-This slide is intentionally left blank
+* Burp intruder (elite hackerman)
 
 {{% /section %}}
 
@@ -153,11 +149,6 @@ This slide is intentionally left blank
 
 * rate limit (or we'll do it for you)
 > 429/429/429/429
-* check out [lwaugh.io/6443/resources/recon](/6443/resources/recon)
-
----
-
-> do the demo lachlan
 
 ---
 
@@ -172,35 +163,12 @@ This slide is intentionally left blank
 
 ps
 
-"*N.B. Both sub-domain enumeration and sub-directory brute-forcing are discouraged and will not assist you in these challenges. However, you may be find it useful to enumerate IDs or passwords.*" - Topic 3 challenges page on OL
+*N.B. Both sub-domain enumeration and sub-directory brute-forcing are discouraged and will not assist you in these challenges. However, you may be find it useful to enumerate IDs or passwords.*
+
+*basically, do educated brute forcing*
 
 {{% /section %}}
-
----
-
-{{% section %}}
-
-## Presentations (woo)
-* ~10 minutes in your groups exploring one of the below technologies 
-* 3-5 minutes presenting it to the rest of the class :)
-
----
-
-## Topics
-* HTTP status codes, types, and headers
-* SSL / TLS
-* Cookies (and JWTs)
-* Certificate transparency
-* other technologies?
-
-{{% /section %}}
-
----
 
 # Go do some challenges
 
 ---
-
-## What is due?
-* Wk03 Sun 23:59pm: topic2 chals (blog, files, etc)
-* Wk05 Wed 23:59pm: the first report
