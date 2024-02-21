@@ -100,9 +100,9 @@ What are some common ones?
 * For this course? Probs quocca related things.
 
 * If you are working with a well known library, go look for default credentials!
-
-___
 {{% /section %}}
+___
+
 
 
 {{% section %}}
@@ -141,9 +141,9 @@ Types of Cookies:
 * secure (prevents MITM)
 * same origin (prevents CSRF)
 * expiry
-
----
 {{% /section %}}
+---
+
 ## Demo
 * [Basic Cookies](http://mercury.picoctf.net:17781)
 
