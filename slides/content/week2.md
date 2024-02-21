@@ -105,12 +105,14 @@ ___
 
 
 
-{{% section %}}
+
 ## So when we Authenticate... How do we keep people Authenticated? 
 
 ---
 
 ### Cookies!
+{{% section %}}
+---
 * A big ol' string that stores some information (usually)
 * Helps the website remember who you are. 
 * Ever wondered how it knows who you are every time? Probably was a cookie.
