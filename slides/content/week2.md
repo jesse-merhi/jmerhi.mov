@@ -110,9 +110,10 @@ ___
 
 ---
 
-### Cookies!
 {{% section %}}
----
+
+### Cookies!
+
 * A big ol' string that stores some information (usually)
 * Helps the website remember who you are. 
 * Ever wondered how it knows who you are every time? Probably was a cookie.
@@ -154,7 +155,7 @@ Types of Cookies:
 ---
 
 ## A note on enumeration
-{{% section %}}
+
 
 * rate limit (or we'll do it for you)
 > 429/429/429/429
@@ -176,7 +177,6 @@ ps
 
 *basically, do educated brute forcing*
 
-{{% /section %}}
 
 ---
 
