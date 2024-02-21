@@ -87,7 +87,7 @@ Authorization: You are only allowed to do, what you should be allowed to do.
 {{% fragment %}}Authentication tells you that you are allowed in.{{% /fragment %}}
 {{% fragment %}}Authorization tells you where you can go once you are in.{{% /fragment %}}
 
-___
+---
 
 ## How do we Authenticate in Websites?
 
@@ -101,15 +101,12 @@ What are some common ones?
 
 * If you are working with a well known library, go look for default credentials!
 {{% /section %}}
-___
 
-
-
+---
 
 ## So when we Authenticate... How do we keep people Authenticated? 
 
 ---
-
 {{% section %}}
 
 ### Cookies!
