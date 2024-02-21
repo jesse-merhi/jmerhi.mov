@@ -52,6 +52,8 @@ outputs: ["Reveal"]
 
 ---
 
+{{% section %}}
+
 ## lecture content
 
 --- 
@@ -63,7 +65,11 @@ outputs: ["Reveal"]
 ## Challenge Topic for this Week
 * This week we are looking at AuthN and AuthZ... Anyone know what they are?
 
+
+{{% /section %}}
+
 ---
+{{% section %}}
 
 Authentication: You are who you say you are.
 
@@ -96,7 +102,10 @@ What are some common ones?
 * If you are working with a well known library, go look for default credentials!
 
 ___
+{{% /section %}}
 
+
+{{% section %}}
 ## So when we Authenticate... How do we keep people Authenticated? 
 
 ---
@@ -134,7 +143,7 @@ Types of Cookies:
 * expiry
 
 ---
-
+{{% /section %}}
 ## Demo
 * [Basic Cookies](http://mercury.picoctf.net:17781)
 
@@ -167,6 +176,6 @@ ps
 
 {{% /section %}}
 
-# Go do some challenges
+### Go do some challenges
 
 ---
