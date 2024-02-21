@@ -54,7 +54,6 @@ outputs: ["Reveal"]
 
 ## lecture content
 
-{{% section %}}
 --- 
 
 ## What happened in the lecture?
@@ -72,6 +71,7 @@ Authorization: You are only allowed to do, what you should be allowed to do.
 
 * What are some real world examples?
 
+
 ---
 
 {{% fragment %}}Concert Tickets{{% /fragment %}}    
@@ -83,7 +83,7 @@ Authorization: You are only allowed to do, what you should be allowed to do.
 
 ___
 
-# How do we Authenticate in Websites?
+## How do we Authenticate in Websites?
 
 .... username and passwords.
 
@@ -97,7 +97,7 @@ What are some common ones?
 
 ___
 
-# So when we Authenticate... How do we keep people Authenticated? 
+## So when we Authenticate... How do we keep people Authenticated? 
 
 ---
 
@@ -139,8 +139,6 @@ Types of Cookies:
 * [Basic Cookies](http://mercury.picoctf.net:17781)
 
 * Burp intruder (elite hackerman)
-
-{{% /section %}}
 
 ---
 
