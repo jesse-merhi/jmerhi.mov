@@ -103,11 +103,12 @@ What are some common ones?
 {{% /section %}}
 
 ---
+{{% section %}}
 
 ## So when we Authenticate... How do we keep people Authenticated? 
 
 ---
-{{% section %}}
+
 
 ### Cookies!
 
@@ -141,6 +142,7 @@ Types of Cookies:
 * secure (prevents MITM)
 * same origin (prevents CSRF)
 * expiry
+
 {{% /section %}}
 ---
 
