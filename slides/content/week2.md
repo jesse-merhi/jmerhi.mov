@@ -65,6 +65,13 @@ outputs: ["Reveal"]
 ## Challenge Topic for this Week
 * This week we are looking at AuthN and AuthZ... Anyone know what they are?
 
+---
+
+## <script>alert(presentations)</script> 
+* 1 bonus point? Probably a mark too
+* ITS GOTTA BE GOOD
+* Quick like 10 min lightning talk :D 
+
 
 {{% /section %}}
 
@@ -105,11 +112,9 @@ What are some common ones?
 ---
 {{% section %}}
 
-## So when we Authenticate... How do we keep people Authenticated? 
+### So when we Authenticate... How do we keep people Authenticated?
 
 ---
-
-
 ### Cookies!
 
 * A big ol' string that stores some information (usually)
@@ -142,8 +147,8 @@ Types of Cookies:
 * secure (prevents MITM)
 * same origin (prevents CSRF)
 * expiry
-
 {{% /section %}}
+
 ---
 
 ## Demo
