@@ -1,0 +1,4 @@
+
+STOPS: 
+What if you used stops for really strange character strings? This would prevent getting the instructions all together. 
+Because if you need to get the instructions, it requires to spit out this weird character string too!
