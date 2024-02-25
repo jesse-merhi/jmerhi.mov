@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
   import { fade, fly } from "svelte/transition";
   import { sineInOut } from "svelte/easing";
   import Icon from "@iconify/svelte";
@@ -16,6 +16,7 @@
   let gpt_response: string = "";
   let part2 = true;
   let part2_1 = false;
+  let messageBox: HTMLDivElement;
   let message_clicked = false;
   let on1: boolean[] = [true, false, false, false];
   const lineCount = 10;
@@ -82,6 +83,11 @@
     }
   }
 
+  $: {
+    if (messages) {
+      setTimeout(() => scrollToBottom(messageBox), 2000);
+    }
+  }
   let lines: any[] = [];
   function transition1() {
     if (
@@ -100,8 +106,12 @@
   function change_message() {
     part2_1 = true;
   }
+  onMount(() => {
+    setTimeout(() => scrollToBottom(messageBox), 2000);
+  });
   onMount(async () => {
     mounted = true;
+
     if (part1) {
       await waitForMs(1500);
       await carousel("Hey I'm Jesse!", "line1");
@@ -193,6 +203,11 @@
       ];
     }, 1000);
   }
+
+  const scrollToBottom = async (node: any) => {
+    node.scroll({ top: node.scrollHeight, behavior: "smooth" });
+    console.log("SCROLLED");
+  };
 </script>
 
 {#if part1}
@@ -246,6 +261,7 @@
       </div>
     {:else}
       <div
+        bind:this={messageBox}
         class={`max-h-[70vh] w-[100vw]  ${messages.length > 0 ? "overflow-y-auto" : ""} `}
       >
         <div class="flex flex-col items-center justify-center scrollbar-shift">
