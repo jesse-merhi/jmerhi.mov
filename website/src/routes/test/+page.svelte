@@ -9,6 +9,7 @@
   for (let i = 1; i <= 100; i++) {
     containers.push(i);
   }
+  let name_error = false;
   let mounted = false;
   let name = "";
   let part1 = false;
@@ -237,6 +238,29 @@
           </p>
         </div>
       </div>
+      {#if gpt_response !== ""}
+        <div
+          class="flex items-stretch gap-2.5 max-w-[350px] mb-4 transition-height"
+        >
+          <div
+            class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
+          >
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+              <span class="text-sm font-semibold text-gray-900 dark:text-white"
+                >Jesse</span
+              >
+              <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
+                >now</span
+              >
+            </div>
+            <p
+              class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white"
+            >
+              {gpt_response}
+            </p>
+          </div>
+        </div>
+      {/if}
       <div
         class="w-[350px] flex flex-row"
         in:fly={{ delay: 3000, duration: 1000, easing: sineInOut, y: "50vh" }}
@@ -258,7 +282,6 @@
           <span class="sr-only">Icon description</span>
         </button>
       </div>
-      <div>{gpt_response}</div>
     {/if}
   </div>
 {/if}
@@ -284,6 +307,20 @@
 </div>
 
 <style>
+  .transition-height {
+    animation-duration: 2s;
+    animation-name: height;
+    overflow: hidden;
+    animation-timing-function: ease-in-out;
+  }
+  @keyframes height {
+    from {
+      max-height: 0;
+    }
+    to {
+      max-height: 600px;
+    }
+  }
   .input-cursor {
     position: absolute;
     display: inline-block;
