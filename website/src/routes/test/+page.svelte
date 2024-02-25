@@ -21,6 +21,7 @@
   const lineCount = 10;
   const minCharCount = 20;
   const maxCharCount = 40;
+  let messages: any[] = [];
   const topPos = ((maxCharCount - 1) / 2) * 10;
   $: if (!part2_1 && part2 && mounted) {
     waitForMs(2500)
@@ -39,7 +40,22 @@
         name: name,
       }),
     });
+    messages = [
+      ...messages,
+      {
+        role: "user",
+        content: name,
+      },
+    ];
     if (response.status != 200) {
+      messages = [
+        ...messages,
+        {
+          role: "system",
+          content:
+            "Sorry, I'm having trouble connecting to the server. Please try again later.",
+        },
+      ];
       gpt_response =
         "Sorry, I'm having trouble connecting to the server. Please try again later.";
       return;
@@ -48,8 +64,21 @@
     console.log(name_response);
     if (name_response == "") {
       gpt_response = `Well hey there ${name}! Nice to meet you...`;
+      messages = [
+        ...messages,
+        {
+          role: "system",
+          content: `Well hey there ${name}! Nice to meet you...`,
+        },
+      ];
     } else {
-      gpt_response = name_response;
+      messages = [
+        ...messages,
+        {
+          role: "system",
+          content: name_response,
+        },
+      ];
     }
   }
 
@@ -194,7 +223,7 @@
 {#if part2}
   <div
     in:fade={{ easing: sineInOut, delay: 2000 }}
-    class="text-2xl sm:text-3xl text-white absolute z-10 w-full h-full flex items-center justify-center flex-col"
+    class="text-2xl sm:text-3xl text-white absolute z-10 w-[100vw] h-full flex items-center justify-center flex-col"
   >
     {#if !part2_1}
       <div
@@ -217,53 +246,70 @@
       </div>
     {:else}
       <div
-        class="flex items-stretch gap-2.5 max-w-[350px] mb-4"
-        in:fly={{ delay: 1000, duration: 1000, easing: sineInOut, y: "50vh" }}
+        class={`max-h-[70vh] w-[100vw]  ${messages.length > 0 ? "overflow-y-auto" : ""} `}
       >
-        <div
-          class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
-        >
-          <div class="flex items-center space-x-2 rtl:space-x-reverse">
-            <span class="text-sm font-semibold text-gray-900 dark:text-white"
-              >Jesse</span
-            >
-            <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
-              >now</span
-            >
-          </div>
-          <p
-            class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white"
+        <div class="flex flex-col items-center justify-center scrollbar-shift">
+          <div
+            class="flex items-stretch gap-2.5 max-w-[350px] mb-4"
+            in:fly={{
+              delay: 1000,
+              duration: 1000,
+              easing: sineInOut,
+              y: "50vh",
+            }}
           >
-            Alright... lets start with something simple. What's your name?
-          </p>
+            <div
+              class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
+            >
+              <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <span
+                  class="text-sm font-semibold text-gray-900 dark:text-white"
+                  >Jesse</span
+                >
+                <span
+                  class="text-sm font-normal text-gray-500 dark:text-gray-400"
+                  >now</span
+                >
+              </div>
+              <p
+                class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white"
+              >
+                Alright... lets start with something simple. What's your name?
+              </p>
+            </div>
+          </div>
+          {#each messages as message}
+            <div
+              class="flex items-stretch gap-2.5 max-w-[350px] mb-4 transition-height w-[350px]"
+            >
+              <div
+                class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
+              >
+                <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                  <span
+                    class="text-sm font-semibold text-gray-900 dark:text-white"
+                    >{#if message.role == "system"}Jesse{:else}You{/if}</span
+                  >
+                </div>
+
+                <p
+                  class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
+                >
+                  {message.content}
+                </p>
+              </div>
+            </div>
+          {/each}
         </div>
       </div>
-      {#if gpt_response !== ""}
-        <div
-          class="flex items-stretch gap-2.5 max-w-[350px] mb-4 transition-height"
-        >
-          <div
-            class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
-          >
-            <div class="flex items-center space-x-2 rtl:space-x-reverse">
-              <span class="text-sm font-semibold text-gray-900 dark:text-white"
-                >Jesse</span
-              >
-              <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
-                >now</span
-              >
-            </div>
-            <p
-              class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white"
-            >
-              {gpt_response}
-            </p>
-          </div>
-        </div>
-      {/if}
       <div
         class="w-[350px] flex flex-row"
-        in:fly={{ delay: 3000, duration: 1000, easing: sineInOut, y: "50vh" }}
+        in:fly={{
+          delay: 3000,
+          duration: 1000,
+          easing: sineInOut,
+          y: "50vh",
+        }}
       >
         <input
           id="their-name"
@@ -307,6 +353,22 @@
 </div>
 
 <style>
+  .scrollbar-shift {
+    padding-left: calc(100vw - 100%);
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: rgb(55, 65, 81);
+  }
   .transition-height {
     animation-duration: 2s;
     animation-name: height;
@@ -316,9 +378,11 @@
   @keyframes height {
     from {
       max-height: 0;
+      opacity: 0%;
     }
     to {
       max-height: 600px;
+      opacity: 100%;
     }
   }
   .input-cursor {
