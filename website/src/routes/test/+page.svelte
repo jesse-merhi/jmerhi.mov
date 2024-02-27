@@ -9,15 +9,16 @@
   for (let i = 1; i <= 100; i++) {
     containers.push(i);
   }
-  let name_error = false;
   let mounted = false;
   let name = "";
+  let responseCursor = false;
+  let sent_name = false;
   let part1 = false;
   let gpt_response: string = "";
   let part2 = true;
+  let nameCursor = false;
   let part2_1 = false;
   let messageBox: HTMLDivElement;
-  let message_clicked = false;
   let on1: boolean[] = [true, false, false, false];
   const lineCount = 10;
   const minCharCount = 20;
@@ -28,10 +29,11 @@
     waitForMs(2500)
       .then(() => (on1[3] = true))
       .then(() => waitForMs(1000))
-      .then(() => carousel("Message Recieved.", "line4"))
+      .then(() => typeSentence("Message Recieved.", "line4"))
       .then(() => (on1[3] = false));
   }
   async function chatgpt_names() {
+    sent_name = true;
     const response = await fetch("/api/gpt/name", {
       method: "POST",
       headers: {
@@ -41,52 +43,27 @@
         name: name,
       }),
     });
-    messages = [
-      ...messages,
-      {
-        role: "user",
-        content: name,
-      },
-    ];
-    if (response.status != 200) {
-      messages = [
-        ...messages,
-        {
-          role: "system",
-          content:
-            "Sorry, I'm having trouble connecting to the server. Please try again later.",
-        },
-      ];
-      gpt_response =
-        "Sorry, I'm having trouble connecting to the server. Please try again later.";
-      return;
-    }
-    const name_response = await response.text();
-    console.log(name_response);
-    if (name_response == "") {
-      gpt_response = `Well hey there ${name}! Nice to meet you...`;
-      messages = [
-        ...messages,
-        {
-          role: "system",
-          content: `Well hey there ${name}! Nice to meet you...`,
-        },
-      ];
-    } else {
-      messages = [
-        ...messages,
-        {
-          role: "system",
-          content: name_response,
-        },
-      ];
-    }
-  }
+    nameCursor = true;
+    await deleteSentence("nameLine", 20);
+    await typeSentence(name, "nameLine", 200);
+    nameCursor = false;
 
-  $: {
-    if (messages) {
-      setTimeout(() => scrollToBottom(messageBox), 2000);
+    gpt_response =
+      "Sorry, I'm having trouble connecting to the server. Please try again later.";
+    if (response.status == 200) {
+      const name_response = await response.text();
+      console.log(name_response);
+      if (name_response == "") {
+        gpt_response = `Well hey there ${name}! Nice to meet you...`;
+      } else {
+        gpt_response = name_response;
+      }
     }
+    responseCursor = true;
+    await deleteSentence("responseLine", 10);
+    await typeSentence(gpt_response, "responseLine", 50);
+    responseCursor = false;
+    return;
   }
   let lines: any[] = [];
   function transition1() {
@@ -106,25 +83,22 @@
   function change_message() {
     part2_1 = true;
   }
-  onMount(() => {
-    setTimeout(() => scrollToBottom(messageBox), 2000);
-  });
   onMount(async () => {
     mounted = true;
 
     if (part1) {
       await waitForMs(1500);
-      await carousel("Hey I'm Jesse!", "line1");
+      await typeSentence("Hey I'm Jesse!", "line1");
       await waitForMs(1000);
       on1[0] = false;
       on1[1] = true;
       await waitForMs(200);
-      await carousel("Lets have a chat...", "line2");
+      await typeSentence("Lets have a chat...", "line2");
       await waitForMs(1000);
       on1[1] = false;
       on1[2] = true;
       await waitForMs(200);
-      await carousel("Press anywhere to start.", "line3");
+      await typeSentence("Press anywhere to start.", "line3");
       await waitForMs(1000);
       on1[2] = false;
     } else if (part2 && lines.length == 0) {
@@ -140,18 +114,33 @@
     }
   }
 
-  async function carousel(carouselList: string, eleRef: string) {
-    await typeSentence(carouselList, eleRef);
-  }
   async function typeSentence(sentence: string, eleRef: string, delay = 80) {
     const letters = sentence.split("");
     let i = 0;
     while (i < letters.length) {
       if (typeof document != undefined) {
+        console.log(letters);
         document.getElementById(eleRef)!.innerHTML += letters[i];
         await waitForMs(delay);
         i++;
       }
+    }
+    return;
+  }
+  async function deleteSentence(eleRef: string, delay = 80) {
+    let i = 0;
+    let lengthInner = document.getElementById(eleRef)!.innerHTML.length;
+    while (i < lengthInner) {
+      if (typeof document != undefined) {
+        document.getElementById(eleRef)!.innerHTML = document
+          .getElementById(eleRef)!
+          .innerHTML.slice(0, -1);
+        await waitForMs(delay);
+        i++;
+      }
+    }
+    if (lengthInner > 0) {
+      await waitForMs(500);
     }
     return;
   }
@@ -203,11 +192,6 @@
       ];
     }, 1000);
   }
-
-  const scrollToBottom = async (node: any) => {
-    node.scroll({ top: node.scrollHeight, behavior: "smooth" });
-    console.log("SCROLLED");
-  };
 </script>
 
 {#if part1}
@@ -294,9 +278,9 @@
               </p>
             </div>
           </div>
-          {#each messages as message}
+          {#if sent_name}
             <div
-              class="flex items-stretch gap-2.5 max-w-[350px] mb-4 transition-height w-[350px]"
+              class="flex items-stretch gap-2.5 max-w-[350px] mb-4 w-[350px] transition-height"
             >
               <div
                 class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
@@ -304,18 +288,52 @@
                 <div class="flex items-center space-x-2 rtl:space-x-reverse">
                   <span
                     class="text-sm font-semibold text-gray-900 dark:text-white"
-                    >{#if message.role == "system"}Jesse{:else}You{/if}</span
+                    >You</span
                   >
                 </div>
 
-                <p
-                  class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
-                >
-                  {message.content}
-                </p>
+                <div>
+                  <span
+                    class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
+                    id="nameLine"
+                  ></span>
+                  <span
+                    id="nameCursor"
+                    class={nameCursor
+                      ? "input-cursor h-[25px] mt-[10px] ml-[2px]"
+                      : ""}
+                  ></span>
+                </div>
               </div>
             </div>
-          {/each}
+            <div
+              class="flex items-stretch gap-2.5 max-w-[350px] mb-4 w-[350px] transition-height"
+            >
+              <div
+                class="flex flex-col w-full leading-1.5 p-4 z-20 border-gray-200 bg-gray rounded-e-xl rounded-es-xl dark:bg-gray-700"
+              >
+                <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                  <span
+                    class="text-sm font-semibold text-gray-900 dark:text-white"
+                    >Jesse</span
+                  >
+                </div>
+
+                <div>
+                  <span
+                    class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
+                    id="responseLine"
+                  ></span>
+                  <span
+                    id="responseCursor"
+                    class={responseCursor
+                      ? "input-cursor h-[25px] mt-[10px] ml-[2px]"
+                      : ""}
+                  ></span>
+                </div>
+              </div>
+            </div>
+          {/if}
         </div>
       </div>
       <div
@@ -332,6 +350,7 @@
           aria-describedby="helper-text-explanation"
           class="w-[88%] z-20 bg-gray-50 border md:text-lg border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Your name here..."
+          maxlength="50"
           bind:value={name}
           on:mousedown={(e) => {}}
         />
@@ -341,7 +360,7 @@
           class="text-white w-[42px] h-[42px] md:w-[50px] md:h-[50px] bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center"
         >
           <Icon icon="mdi:arrow-right" width="100%"></Icon>
-          <span class="sr-only">Icon description</span>
+          <span class="sr-only">Send</span>
         </button>
       </div>
     {/if}
@@ -389,11 +408,11 @@
     animation-duration: 2s;
     animation-name: height;
     overflow: hidden;
-    animation-timing-function: ease-in-out;
+    animation-timing-function: linear;
   }
   @keyframes height {
     from {
-      max-height: 0;
+      max-height: 0px;
       opacity: 0%;
     }
     to {
