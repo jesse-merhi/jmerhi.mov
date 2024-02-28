@@ -14,11 +14,18 @@
   let responseCursor = false;
   let sent_name = false;
   let part1 = false;
+  let line1: HTMLElement;
+  let line2: HTMLElement;
+  let line3: HTMLElement;
+  let line4: HTMLElement;
   let gpt_response: string = "";
   let part2 = true;
   let nameCursor = false;
+  let getting_response = false;
   let part2_1 = false;
   let messageBox: HTMLDivElement;
+  let you: HTMLElement;
+  let responseBox: HTMLElement;
   let on1: boolean[] = [true, false, false, false];
   const lineCount = 10;
   const minCharCount = 20;
@@ -29,11 +36,28 @@
     waitForMs(2500)
       .then(() => (on1[3] = true))
       .then(() => waitForMs(1000))
-      .then(() => typeSentence("Message Recieved.", "line4"))
+      .then(() => typeSentence("Message Recieved.", line4))
       .then(() => (on1[3] = false));
   }
-  async function chatgpt_names() {
+  async function send_name() {
     sent_name = true;
+  }
+  async function get_response() {
+    getting_response = true;
+  }
+  async function submit_name() {
+    await send_name();
+    change_name();
+    await get_response();
+    chatgpt_names();
+  }
+  async function change_name() {
+    nameCursor = true;
+    await deleteSentence(you, 20);
+    await typeSentence(name, you, 200);
+    nameCursor = false;
+  }
+  async function chatgpt_names() {
     const response = await fetch("/api/gpt/name", {
       method: "POST",
       headers: {
@@ -43,10 +67,6 @@
         name: name,
       }),
     });
-    nameCursor = true;
-    await deleteSentence("nameLine", 20);
-    await typeSentence(name, "nameLine", 200);
-    nameCursor = false;
 
     gpt_response =
       "Sorry, I'm having trouble connecting to the server. Please try again later.";
@@ -60,8 +80,8 @@
       }
     }
     responseCursor = true;
-    await deleteSentence("responseLine", 10);
-    await typeSentence(gpt_response, "responseLine", 50);
+    await deleteSentence(responseBox, 10);
+    await typeSentence(gpt_response, responseBox, 50);
     responseCursor = false;
     return;
   }
@@ -88,17 +108,17 @@
 
     if (part1) {
       await waitForMs(1500);
-      await typeSentence("Hey I'm Jesse!", "line1");
+      await typeSentence("Hey I'm Jesse!", line1);
       await waitForMs(1000);
       on1[0] = false;
       on1[1] = true;
       await waitForMs(200);
-      await typeSentence("Lets have a chat...", "line2");
+      await typeSentence("Lets have a chat...", line2);
       await waitForMs(1000);
       on1[1] = false;
       on1[2] = true;
       await waitForMs(200);
-      await typeSentence("Press anywhere to start.", "line3");
+      await typeSentence("Press anywhere to start.", line3);
       await waitForMs(1000);
       on1[2] = false;
     } else if (part2 && lines.length == 0) {
@@ -114,27 +134,29 @@
     }
   }
 
-  async function typeSentence(sentence: string, eleRef: string, delay = 80) {
+  async function typeSentence(
+    sentence: string,
+    binding: HTMLElement,
+    delay = 80,
+  ) {
     const letters = sentence.split("");
     let i = 0;
     while (i < letters.length) {
       if (typeof document != undefined) {
         console.log(letters);
-        document.getElementById(eleRef)!.innerHTML += letters[i];
+        binding.innerHTML += letters[i];
         await waitForMs(delay);
         i++;
       }
     }
     return;
   }
-  async function deleteSentence(eleRef: string, delay = 80) {
+  async function deleteSentence(binding: HTMLElement, delay = 80) {
     let i = 0;
-    let lengthInner = document.getElementById(eleRef)!.innerHTML.length;
+    let lengthInner = binding.innerHTML.length;
     while (i < lengthInner) {
       if (typeof document != undefined) {
-        document.getElementById(eleRef)!.innerHTML = document
-          .getElementById(eleRef)!
-          .innerHTML.slice(0, -1);
+        binding.innerHTML = binding.innerHTML.slice(0, -1);
         await waitForMs(delay);
         i++;
       }
@@ -148,11 +170,11 @@
   function waitForMs(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  function random(min, max) {
+  function random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-  function getContent(length) {
+  function getContent(length: number) {
     let result = "";
     const characters = "01";
     const charactersLength = characters.length;
@@ -162,7 +184,7 @@
     return result;
   }
 
-  function generateLine(index) {
+  function generateLine(index: number) {
     const charCount = random(minCharCount, maxCharCount);
     const tick = random(300, 500);
     const content = getContent(charCount);
@@ -177,7 +199,7 @@
     setTimeout(() => animate(index, charCount), tick + index * 100);
   }
 
-  function animate(index, charCount) {
+  function animate(index: number, charCount: number) {
     setInterval(() => {
       const content = getContent(charCount);
       const updatedLine = {
@@ -205,15 +227,15 @@
   >
     <div class="flex items-center justify-center flex-col text-center">
       <div class="h-[2rem] sm:h-[2.25rem] w-[80dvw]">
-        <span id="line1"></span>
+        <span bind:this={line1}></span>
         <span id="cursor1" class={on1[0] ? "input-cursor h-[35px]" : ""}></span>
       </div>
       <div class="h-[2rem] sm:h-[2.25rem] w-[80dvw]">
-        <span id="line2"></span>
+        <span bind:this={line2}></span>
         <span id="cursor2" class={on1[1] ? "input-cursor h-[35px]" : ""}></span>
       </div>
       <div class="h-[2rem] sm:h-[2.25rem] w-[80dvw]">
-        <span id="line3"></span>
+        <span bind:this={line3}></span>
         <span id="cursor3" class={on1[2] ? "input-cursor h-[35px]" : ""}></span>
       </div>
     </div>
@@ -238,7 +260,7 @@
           <Icon icon="mdi:message-badge" width="100%"></Icon>
         </div>
         <div class="h-[2rem] sm:h-[2.25rem]">
-          <span id="line4"></span>
+          <span bind:this={line4}></span>
           <span id="cursor4" class={on1[3] ? "input-cursor h-[35px]" : ""}
           ></span>
         </div>
@@ -295,7 +317,7 @@
                 <div>
                   <span
                     class="text-base md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
-                    id="nameLine"
+                    bind:this={you}
                   ></span>
                   <span
                     id="nameCursor"
@@ -306,6 +328,8 @@
                 </div>
               </div>
             </div>
+          {/if}
+          {#if getting_response}
             <div
               class="flex items-stretch gap-2.5 max-w-[350px] mb-4 w-[350px] transition-height"
             >
@@ -322,7 +346,7 @@
                 <div>
                   <span
                     class="text-base md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
-                    id="responseLine"
+                    bind:this={responseBox}
                   ></span>
                   <span
                     id="responseCursor"
@@ -356,7 +380,7 @@
         />
         <button
           type="button"
-          on:click={chatgpt_names}
+          on:click={submit_name}
           class="text-white w-[50px] h-[50px] md:w-[50px] md:h-[50px] bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-base p-2.5 text-center inline-flex items-center"
         >
           <Icon icon="mdi:arrow-right" width="100%"></Icon>
@@ -366,11 +390,7 @@
     {/if}
   </div>
 {/if}
-<div
-  class="background-container z-0"
-  id="background-container"
-  bind:this={mounted}
->
+<div class="background-container z-0" id="background-container">
   {#if part1}
     {#each containers as i}
       <div class="circle-container" out:fade={{ easing: sineInOut }}>
