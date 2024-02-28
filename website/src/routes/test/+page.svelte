@@ -263,16 +263,16 @@
             >
               <div class="flex items-center space-x-2 rtl:space-x-reverse">
                 <span
-                  class="text-sm font-semibold text-gray-900 dark:text-white"
+                  class="text-base font-semibold text-gray-900 dark:text-white"
                   >Jesse</span
                 >
                 <span
-                  class="text-sm font-normal text-gray-500 dark:text-gray-400"
+                  class="text-base font-normal text-gray-500 dark:text-gray-400"
                   >now</span
                 >
               </div>
               <p
-                class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white"
+                class="text-base md:text-lg font-normal py-2.5 text-gray-900 dark:text-white"
               >
                 Alright... lets start with something simple. What's your name?
               </p>
@@ -287,14 +287,14 @@
               >
                 <div class="flex items-center space-x-2 rtl:space-x-reverse">
                   <span
-                    class="text-sm font-semibold text-gray-900 dark:text-white"
+                    class="text-base font-semibold text-gray-900 dark:text-white"
                     >You</span
                   >
                 </div>
 
                 <div>
                   <span
-                    class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
+                    class="text-base md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
                     id="nameLine"
                   ></span>
                   <span
@@ -314,14 +314,14 @@
               >
                 <div class="flex items-center space-x-2 rtl:space-x-reverse">
                   <span
-                    class="text-sm font-semibold text-gray-900 dark:text-white"
+                    class="text-base font-semibold text-gray-900 dark:text-white"
                     >Jesse</span
                   >
                 </div>
 
                 <div>
                   <span
-                    class="text-sm md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
+                    class="text-base md:text-lg font-normal py-2.5 text-gray-900 dark:text-white text-balance break-words"
                     id="responseLine"
                   ></span>
                   <span
@@ -348,7 +348,7 @@
         <input
           id="their-name"
           aria-describedby="helper-text-explanation"
-          class="w-[88%] z-20 bg-gray-50 border md:text-lg border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="w-[88%] z-20 text-base bg-gray-50 border md:text-lg border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Your name here..."
           maxlength="50"
           bind:value={name}
@@ -357,7 +357,7 @@
         <button
           type="button"
           on:click={chatgpt_names}
-          class="text-white w-[42px] h-[42px] md:w-[50px] md:h-[50px] bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center"
+          class="text-white w-[50px] h-[50px] md:w-[50px] md:h-[50px] bg-primary hover:bg-primary-dark active:bg-primary-dark focus:outline-none font-medium rounded-lg text-base p-2.5 text-center inline-flex items-center"
         >
           <Icon icon="mdi:arrow-right" width="100%"></Icon>
           <span class="sr-only">Send</span>
