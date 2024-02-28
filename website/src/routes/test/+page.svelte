@@ -48,7 +48,7 @@
   async function submit_name() {
     await send_name();
     change_name();
-    await get_response();
+
     chatgpt_names();
   }
   async function change_name() {
@@ -67,7 +67,7 @@
         name: name,
       }),
     });
-
+    await get_response();
     gpt_response =
       "Sorry, I'm having trouble connecting to the server. Please try again later.";
     if (response.status == 200) {
