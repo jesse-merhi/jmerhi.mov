@@ -4,28 +4,23 @@ layout: "bundle"
 outputs: ["Reveal"]
 ---
 
-## We'll get started at 18:05
+## We'll get started at 5 past!
 
 ---
 
 {{< slide class="center" >}}
 # Week03
-### COMP6443 H18A 
+### COMP6443
 
 ---
 
 {{% section %}}
 
 ## Challenges
-* From now on, all challenges are worth marks.
-* From next week, the challenges are more difficult!
-* We'll say which challenges are required
-
----
-
-## Solutions?
-* Idk how to solve them tbh, but maybe someone could demo? (I think only HAAS so far)
-* Maybe you could get a bonus mark?
+* The first weeks challenges were due!
+    * If you want extra hints I can give them now for those challenges ;) 
+* From next week (week 4), the challenges are more difficult! So if you are 
+confused still about how this whole process works... ASK ME.
 
 ---
 
@@ -39,7 +34,7 @@ outputs: ["Reveal"]
 
 ## Due dates
 * Topic02 challenges: THIS SUNDAY 11:59pm
-* Midterm: Week05 (during the lecture I assume?)
+* Midterm: Week05 Monday
 * Report: Week05 Sunday 11:59pm
 
 {{% /section %}}
@@ -47,102 +42,24 @@ outputs: ["Reveal"]
 ---
 
 ## Reports
-{{% section %}}
-
-### What to include
-* Vulnerability Details
-* Proof of Concept / Steps to Reproduce
-* **Impact** !important
-* Remediation
-
----
-
-### Really consider the impact
-* Order the report based on how damaging the vulnerabilities are
-* Don't just include things we've talked about in lectures/tuts, discuss general security issues you came across
-* Good explanation of the impact `>>>>` more flags
-
----
-
-### What to include
-> Everything™!!
-* Challenge solutions
-* Midterm solutions
-* Recon/HAAS solutions
-
-{{% /section %}}
+Does anyone NOT have a group?
 
 ---
 
 {{% section %}}
 
 ## Lecture content
-* Authentication
-* Session management
-* IDOR
-* HTTP Response codes
-* hashing vs encryption
+What happened in the lecture - pls help me <3
 
 ---
 
-## Authentication
-Weak passwords
-
-![](/img/week03/password_meme.jpg)
-
----
-
-Bruteforcing passwords ([seclists](https://github.com/danielmiessler/SecLists/Passwords/) again woo): Overly verbose error messages/information disclosure bad?
-
-![](/img/week03/password_taken_meme.jpg)
-
----
-
-## Protections?
-* 2FA
-* Captchas
-* Account lockouts
-* ~~firing idiots~~ strong password policies
-
----
-
-## Session management
-* Cookies are great, and never insecure :)
-* Some of my favourite ways to encrypt them are base64 and base58!
-* Most web frameworks have their own version of session tokens (e.g. Flask, Express)
-
----
-
-## Issues with sessions
-* Deterministic tokens
-* Tokens that don't expire
-* Modifiable tokens
-* Can lead to session fixation/hijacking
-
----
-
-## IDOR
-> Insecure Direct Object Reference
-
-![](/img/week03/idor.png)
-
----
-
-## Hashing vs encryption
-* ~~Hashing is just lossy encryption, change my mind~~
-* What's the difference?
-* When would you use them?
-
----
-
-## HTTP Response codes
-* 1XX - hold on
-* 2XX - here you go
-* 3XX - go away
-* 4XX - you messed up
-* 5XX - I messed up
-
-> [https://http.cat/]()
+## We are going to go over
+* Basic Identity Stuff (SSO, FID, OAuth, SAML)
+* Hashing vs Encryption 
+* PASSWORDS
+* Secrets
+* HSTS
+* Content Security Policy (Kinda Extended Content)
 
 {{% /section %}}
 
@@ -150,43 +67,134 @@ Bruteforcing passwords ([seclists](https://github.com/danielmiessler/SecLists/Pa
 
 {{% section %}}
 
-## Defences
-* JWT
-* SAML (garbanzo)
-* OAuth (goodbanzo) / OICD
-* HSTS
-* CSP
-* SSO / FID
-* Access control
+## Has anyone ever signed into a website without typing their password into the website? 
+### If so: How? 
+---
+### Confusing Identity Stuff that no-one understands
+
+* SSO -> I get to sign-in to everything with google!
+* Federated ID -> I get to sign-in to every google product with the same account!
+* OAuth -> I get to give companies permission to access my data!
+* SAML -> I get to give companies permission to access my data and authorise me too!
+
+---
+All of these have very confusing flow diagrams... but try to understand them if you can
+
+Heres an SSO example: https://easywiki.quoccabank.com/ 
+
+{{% /section %}}
+
+---
+## Passwords
+
+{{% section %}}
+
+You need to bruteforce this week: ([seclists](https://github.com/danielmiessler/SecLists/Passwords/)): 
+![](/assets/img/week03/password_meme.jpg)
 
 ---
 
-## JWT
-JSON Web Tokens
-* not very good as session tokens [read more](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
-* We already did this I think, why's this even in the slides lol, it couldn't be a hint right (jk ... unless?)
+## Protections!
+* Non verbose error messages!
+
+--- 
+Whats the problem here? 
+
+![](/assets/img/week03/verbose_password.png)
+
+---
+* 2FA
+* Captchas
+* Account lockouts
+* strong password policies
+    * We dont like time based resetting though!
+
+{{% /section %}}
 
 ---
 
-## OAuth / SAML
-Security Assertion Markup Language
-* SAML is bad, its a markup language sent over POST
-* OAuth is nicer, it uses JWTs which are much more lightweight (can be sent as headers)
+{{% section %}}
+
+## Secrets
+
+Anyone have an example of a secret? 
 
 ---
+
+All shapes and sizes!
+
+* Privileged account credentials
+* Passwords
+* Certificates
+* SSH keys
+* API keys -> Your gateway to using the entire internet... sounds pretty important.
+* Encryption keys
+
+--- 
+
+## How are secrets usually... kept secret? 
+
+---
+
+### Locally
+
+* Plain text. Yes it sounds worse than it is.
+    * Why is this not... horrible?
+* Injected into your local dev environment via command line
+* Usually included in a .env file.
+
+---
+
+## Where does this go wrong? 
+
+![Committing your secrets.](https://github.com/search?q=OPENAI_API_KEY%3Dsk-&type=code)
+`git add --all && git commit -m "Adding my .env file because fun" && git push`
+
+---
+
+## How is this fixed?
+
+`.gitignore` your `.env` file. Everytime.
+
+If you accidentally PUSH secrets... things get hard. Look into squashing commits.
+Or you just have to delete the whole repository.
+
+* Pre-commit/push hooks.
+
+---
+
+# In deployments
+
+Storing Secrets in places like
+* Hashicorp Vault
+* AWS Secrets Manager
+* Google Secrets Manager
+
+
+Honestly, just find out if what you are using has any SECURE secrets management and use that.
+
+{{% /section %}}
+
+--- 
+
+{{% section %}}
 
 ## HSTS
 HTTP Strict Transport Security
-* Enforces the use of HTTPS.
-    * Helps to prevent HTTPS downgrade attacks
+* Websites sometimes are on HTTP...
+    * HTTP bad because it doesnt encrypt data when sending it
+    * This is vulnerable to MITM attacks!
+* HSTS basically forces you to use HTTPS. Which is good!
 
-* HSTS pre-load list [here](https://hstspreload.org/)
-    * A list of domains that support HSTS.
-    * Used in most modern browsers
+Not much else to say... use https.
+
+{{% /section %}}
 
 ---
 
-## CSP
+{{% section %}}
+
+## CSP (Kinda Extended)
 Content Security Policy
 
 Helps mitigate XSS and injection attacks by specifying which locations resources can be loaded from
@@ -195,24 +203,20 @@ Helps mitigate XSS and injection attacks by specifying which locations resources
 
 ---
 
-## SSO / FID
-Single Sign-On / Federated Identity
-* **SSO**: access multiple services (in one organisation) with the same session/without reauthenticating.
+### Example
+> Content-Security-Policy: default-src 'self'; img-src 'self' cdn.example.com;`
 
-* **FID**: external authentication. Offers access to services across multiple organisations (links your identity to multiple IAMS's)
+`default-src` -> restricts what URLs resources can be fetched from the document.
+Including:
+* images (img-src), 
+* css files (script-src), 
+* js files (script-src), etc.
 
----
+`self` means the same origin, or same domain and scheme.
 
-## Access control
-* MAC - Mandatory (levels w/ central authority)
-* DAC - Discretionary (levels w/ no central authority)
-* RBAC - Role-based (groups)
-* ABAC - Attribute-based (dynamic controls)
-* RuBAC - Rule-based (structured rules/policies)
+`img-src` directive overrides the `default-src` directive and provide a policy specific to loading images.
 
-read more [here](https://www.sailpoint.com/identity-library/what-are-the-different-types-of-access-control-systems/)
-
-{{% /section %}}
+{{% /section %}} 
 
 ---
 
@@ -220,14 +224,6 @@ read more [here](https://www.sailpoint.com/identity-library/what-are-the-differe
 # Demo
 
 > automating requests in python
-
----
-
-## how 2 script
-* python + requests
-* javascript + fetch
-* bash + curl
-* ~~carrier pigeon~~
 
 {{% /section %}}
 
@@ -237,7 +233,4 @@ read more [here](https://www.sailpoint.com/identity-library/what-are-the-differe
 
 ---
 
-## Now you
-* In your groups, give the challenges a shot
-* If you've already solved them all (gj), maybe get started on the report.
-    * if you're bored try out a ctf to practice for next week? e.g. [ringezer0](https://ringzer0ctf.com/challenges), [owasp juice shop](https://owasp.org/www-project-juice-shop/), 
+# Thats all!

@@ -1,6 +1,6 @@
 <script>
   import Layout from "../__layout.svelte";
-  let max_week = 2;
+  let max_week = 3;
 </script>
 
 <Layout>
