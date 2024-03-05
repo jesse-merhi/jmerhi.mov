@@ -221,8 +221,6 @@ SELECT * FROM items WHERE item = '' UNION SELECT username,password FROM users;--
 * not *necessarily* in the challenges
 > covered in the extended lecture
 
-{{% /section %}}
-
 ---
 
 ## Now you
