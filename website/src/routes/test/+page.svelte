@@ -13,13 +13,13 @@
   let name = "";
   let responseCursor = false;
   let sent_name = false;
-  let part1 = false;
+  let part1 = true;
   let line1: HTMLElement;
   let line2: HTMLElement;
   let line3: HTMLElement;
   let line4: HTMLElement;
   let gpt_response: string = "";
-  let part2 = true;
+  let part2 = false;
   let nameCursor = false;
   let getting_response = false;
   let part2_1 = false;

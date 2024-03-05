@@ -4,59 +4,61 @@ layout: "bundle"
 outputs: ["Reveal"]
 ---
 
-## We'll get started at 18:05
+## We'll get started at 5 past
 
 ---
 
 {{< slide class="center" >}}
 # Week04
-### COMP6443 H18A 
+### COMP6443 
 
 ---
 
 ## Upcoming due dates?
-> next week
-* wed 6-7pm: mid-sem (10%)
+> Next Week
+*  Monday during the lecture slot: mid-sem (0%)
 * sun 11:59pm
   * report01 (20%)
   * topic03 challenges
 
 ---
 
-## SQL
+## ~~SQL~~ SQUILLY
 
 {{% section %}}
 > Structured Query Language
-* SQLite, PostgreSQL, MySQL, MSSQL Server
+* Basically how you can find stuff in a database.
+Some examples of "Flavours" (different implementations of SQL) include
+  * SQLite, PostgreSQL, MySQL, MSSQL Server
 
 ---
 
-> Fingerprinting
-* work out the flavour/version
-	* **MySQL**: `Version()`
-	* **SQLite**: `sqlite_version()`
-	* **MSSQL**: `@@Version`
+Databases
+* Tables
+  * Defined through columns
+  * Contain records
+    * each record potentially containing a value for every cell.
+  
+---
+
+![](/assets/img/week04/database_visualised.png)
 
 ---
 
-> Finding the schema
-* what tables exist, what do they look like?
-	* **MySQL**: `information_schema.[tables|columns]`
-	* **SQLite**: `sqlite_[master|schema]`
-	* **MSSQL**: `SHOW TABLES; DESCRIBE <table_name>`
+How do I use SQL? Well you just "QUERY" for what you want!
 
 ---
 
-Queries >
-* `SELECT <column> FROM <table>;`
-* `INSERT INTO table VALUES (a, b);`
-* `UPDATE table SET ... = ...`
+>> Queries
+* `SELECT <column> FROM <table>;` -> Returns all the values of "column" in the table.
+* `INSERT INTO table (columna, columnb) VALUES (a, b);` -> Inserts some values into a table.
+* `UPDATE table SET ... = ...` -> Updates values of a table.
 * ~~`DELETE FROM table ...`~~ (*pls dont*)
-* `-- a comment (also #)`
+* `-- a comment (also #)` -> Anything after the -- is ignored.
 
 ---
 
-SELECT \* FROM table WHERE ...
+SELECT \* FROM table WHERE ... -> Select ALL THE COLUMNS from a table
 * `col =  ...`
 * `col >  ...`
 * `col <  ...` 
@@ -66,18 +68,39 @@ SELECT \* FROM table WHERE ...
 
 ---
 
-`SELECT user, pass FROM users UNION SELECT title, author FROM blogs`
-```
-  user	  pass	     id	  title   author	THE UNION
-|=======|=======|   |===|=======|=======|   |=======|=======|
-| admin	| admin	|   | 1 | blog1 | melon |   | admin | admin |
-| melon	| water	|   | 2 | blog2 | admin |   | melon | water |
-|=======|=======|   | 3 | blog3 | admin |   | blog1 | melon |
-		    |===|=======|=======|   | blog2 | admin |
-		 		    	    | blog3 | admin |
-      users		   blogs	    |=======|=======|
-```
+SOME EXTRA COOL STUFF YOU CAN SELECT (WRITE THIS DOWN)
+
+---
+
+> Fingerprinting (What flavour am I using?)
+* work out the flavour/version
+	* **MySQL**: `SELECT Version()`
+	* **SQLite**: `SELECT sqlite_version()`
+	* **MSSQL**: `SELECT @@Version`
+
+
+---
+
+> Finding the schema
+* what tables exist, what do they look like?
+	* **MySQL**: `SELECT * FROM information_schema.[tables|columns]`
+	* **SQLite**: `SELECT * FROM sqlite_[master|schema]`
+	* **MSSQL**: `SHOW TABLES; DESCRIBE <table_name>`
+
+---
+
+Demo this in `/playground`
 	
+---
+
+Demo SQL Code
+
+```
+SELECT * FROM sqlite_master
+INSERT INTO users VALUES (5,'jesse','merhi')
+SELECT * FROM users UNION SELECT * FROM stock
+```
+
 ---
 
 ## Notes on UNIONs
@@ -85,11 +108,18 @@ SELECT \* FROM table WHERE ...
 * The data-type for the columns must be compatible
 * You can also UNION the same table
 
-{{% /section %}}
-
 ---
 
-## SQLi
+```
+SELECT username, password FROM users UNION SELECT * FROM stock
+```
+
+---
+{{% /section %}}
+
+
+---
+## SQLi (Squilly for cool kids)
 {{% section %}}
 
 ### SQL Injection
@@ -125,16 +155,26 @@ SELECT * FROM users WHERE user = '' OR 1=1 --'and password = '...'
 * Syntax needs to be correct, or you'll throw an error
   * so, determine syntax through errors/fingerprint
 
+Common syntax errors:
+* Single vs. Double quotes
+* Commenting character (--) vs #
+* Brackets! `((username = '{INPUT}' AND password = '{PASSWORD}'))`
+
+---
+
 * You have SQLi in `items`, but want `users`
   * find out the tables? (database schema)
   * include that table with a `UNION`
-
+```sql
+SELECT * FROM items WHERE item = '' UNION SELECT username,password FROM users;--;'
+--                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+```
 {{% /section %}}
 
 ---
 
 # SQLi Demo
-> A basic login form
+> Back to /login
 
 ---
 
@@ -180,19 +220,6 @@ SELECT * FROM users WHERE user = '' OR 1=1 --'and password = '...'
   * it's still vulnerable to injection
 * not *necessarily* in the challenges
 > covered in the extended lecture
-
----
-
-## Presentations
-{{% section %}}
-### anybody? 
-ten minute presentation on something cool security related from the last week?
-for bonus marks??
-
----
-
-### Walkthroughs?
-anybody want to present the solutions for blog / files?
 
 {{% /section %}}
 
