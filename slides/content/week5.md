@@ -16,121 +16,58 @@ outputs: ["Reveal"]
 
 # House cleaning 
 {{% section %}}
-
-## Report groups
-> If you aren't in a group please let me know
+## Midterm
+> How'd you all find it (trivial enough?)
+> Gonna do some of them challenges later
 
 ---
 
-## Midterm
-> How'd you all find it (trivial enough?)
+## This week
+
+- Local File Inclusion
+- Server Side Request Forgery
+- Server Side Template Injection
+- Reverse Shells
+
 {{% /section %}}
 
 ---
-
-# Lecture content
-* XXE
-* SSRF
-* SSTI (did they go through this? idk)
-* Shell injection, RCE and Reverse Shells
-
----
-
-## XXE
 {{% section %}}
-### XML External Entities
-* DTD - Document Type Definition
-* Internal Entity: an entity declared within the DTD (like a variable)
-* External Entity: an entity declared outside the DTD (files, stuff on other websites)
+### Local File Inclusion / Server Side Inclusion
+
+- Is what it sounds like.
+- Getting the server to include a file on a webpage
+- Uses includes
+---
+
+Demo (Pico CTF) "Forbidden Paths" (Local File Disclosure)
 
 ---
 
-### Internal entities
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE foo [
-  <!ENTITY string "hey, don't read my diary" >
-]>
-<diary>
-  <entry>&string;</entry>
-</diary>
+Why is this bad? 
+
+> ../../../../../../etc/passwd
+
+```php
+<?php
+// Get the page to include from the URL parameter
+$page = $_GET['page'];
+// Include the requested page
+include($page . '.html');
+?>
 ```
 
-&nbsp;
-
-prints
-```text
-hey, don't read my diary
-```
+> What if you can upload files and then have them executed? Whats that called?
 
 ---
 
-### External entities
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE foo [
-  <!ENTITY funCatFact "https://FunCatFact.com/generate" >
-]>
-<diary>
-  <entry>&funCatFact;</entry>
-</diary>
-```
+How do we fix? 
 
-&nbsp;
+> allowlist
+> santise inputs for "../"
+> dont do it?
 
-prints
-```text
-Cats are asleep for 70% of their lives.
-```
-
----
-
-### LFI / SSI
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE foo [
-  <!ENTITY flag SYSTEM "file:///flag.txt" >
-]>
-<diary>
-  <entry>&flag;</entry>
-</diary>
-```
-
-&nbsp;
-
-prints
-```text
-COMP6443{....}
-```
-
----
-
-### Parameterised entities
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE foo [
-  <!ENTITY % difficulty "trivial" >
-  <!ENTITY % meme "web apps is %difficulty;" >
-]>
-<diary>
-  <entry>%meme;</entry>
-</diary>
-```
-
-&nbsp;
-
-prints
-```text
-web apps is trivial
-```
-
----
-
-### How to host content
-* `python3 -m http.server + NGROK`
-* `RequestBin`
-* `GitHub pages` (needs to build everytime though so it's slow)
-
+--- 
 {{% /section %}}
 
 ---
@@ -190,7 +127,6 @@ web apps is trivial
 ## Basic PHP injection
 {{% section %}}
 * PHP is the worst language in the world
-* Kris kinda went through in the tute, thought I'd just show what you could get with it though
 
 ---
 
@@ -221,7 +157,7 @@ web apps is trivial
 
 ---
 
-## [Demo](https://github.com/lachlan-waugh/6443/tree/main/demos/server-side-injection/revshell)
+## No demo on work laptop :( THERE ARE PLENTY OF CHALLENGES THOUGH
 
 ---
 
@@ -230,9 +166,8 @@ web apps is trivial
 
 ---
 
-# Presentations
-* ten minute presentation on something cool security related from the last week?
-* for bonus marks??
+# Ok
+> Midterm walkthrough? Yes or No?
 
 ---
 
