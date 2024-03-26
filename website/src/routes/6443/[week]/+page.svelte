@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Layout from "../../__layout.svelte";
+  import Layout from "../../+layout.svelte";
 
   import { page } from "$app/stores";
   let week = $page.params.week;
@@ -15,14 +15,12 @@
   }
 </script>
 
-<Layout>
-  {#if week_number == undefined || week_number == -1}
-    <h1>Week not found</h1>
-  {:else if week}
-    <iframe
-      title="6443"
-      src={"/6443/" + week + "/index.html"}
-      class="w-full h-full"
-    ></iframe>
-  {/if}
-</Layout>
+{#if week_number == undefined || week_number == -1}
+  <h1>Week not found</h1>
+{:else if week}
+  <iframe
+    title="6443"
+    src={"/6443/" + week + "/index.html"}
+    class="w-full h-full"
+  ></iframe>
+{/if}
