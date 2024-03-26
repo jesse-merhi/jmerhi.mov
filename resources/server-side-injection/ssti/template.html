@@ -11,6 +11,29 @@
             
             <input type="submit" value="Submit">
         </form>
-        {}
+        49
 </body>
 </html>
+
+
+
+
+Python reads the html file to a string -> "HTML FILE {}"
+
+"HTML FILE {}" HAS SOME PARAMETERS INSIDE WHICH ARE DENOTED AS {} -> Insert the user input and replace these parameters.
+
+"HTML FILE {{7*7}}"
+
+GIVE render_template_string("HTML FILE {{7*7}}") -> THIS WILL READ THE STRING AND CHECK FOR ANY PYTHO CODE THAT 
+NEEDs TO BE RUN. 
+
+PYTHON CODE IS DENOTED BY {{PYTHON CODE}} THEN IT RUNS THE CODE e.g. {{7*7}} -> 49
+
+"HTML FILE {{7*7}}" -> "HTML FILE 49"
+
+
+
+THE ENTIRE STRING is returned to the client
+
+
+"HTML FILE {{7*7}}"

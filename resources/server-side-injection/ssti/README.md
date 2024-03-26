@@ -7,3 +7,8 @@
 
 
  {{''.__class__}}
+
+
+
+
+title = ''OR 1=1 -- password
