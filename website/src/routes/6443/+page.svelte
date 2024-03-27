@@ -13,7 +13,7 @@
     {
       name: "Week 7",
       content: "Cross Site Scripting",
-      img: "SSRFetc.webp",
+      img: "XSS.webp",
       week: "7",
     },
   ];
