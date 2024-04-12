@@ -79,7 +79,7 @@ return it as a JSON object that is called by a "callback function".
 ---
 
 e.g. 
-`api.quoccabank.com/get_users/jsonp?callback=console.log`
+`api.quoccabank.com/get_users/jsonp?callback=login`
 returns
 ```
 login([
@@ -107,14 +107,27 @@ What would happen?
 The HTML on `login.quoccabank.com` would then execute that plaintext as javascript!
 
 ```html
-<script src="api.quoccabank.com/get_users/jsonp?callback=console.log"/>
-console.log([
+<script src="api.quoccabank.com/get_users/jsonp?callback=login"/>
+login([
 {username:"jesse",password:"epicgamer123"}
 {username:"melon",password:"ismellreallybad"}
 {username:"george",password:"thanksforwatching!"}
 ])
 </script>
 ```
+
+---
+
+Now all we need to do is make sure we have some function defined on `login.quoccabank.com` 
+called "login"
+
+```javascript
+function login(data) { // Data from the other website passed into function.
+    if (data.username == "admin" and data. password == "admin") {
+        document.cookie = "LOGGED_IN_OR_SOMETHING";
+    }
+
+}```
 
 ---
 
