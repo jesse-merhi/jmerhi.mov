@@ -47,25 +47,73 @@ outputs: ["Reveal"]
 
 ---
 
-### How 2 JSONP
-* How do you load the content? You run a function which takes the data as an argument.
+### Scenario
 
-* Since we're loading the data, we define what function is being used to load it.
+We have two websites.
+
+1. api.quoccabank.com
+2. login.quoccabank.com
+
+Login just has a normal login page and to check if a user has logged in
+successfully, it needs to get the users from api.quoccabank.com.
 
 ---
 
-### JSONP Example
-* Define the function using a `callback` parameter
+### The problem with SOP 
+
+Normally you would want to do something like:
+
+`api.quoccabank.com/get_users`
+
+But we are on different origins! So we cant do that :(
+
+
+---
+
+So for api.quoccabank.com, the only way to transmit data that gets around
+Same origin policy is through javascript sources!
+
+So we setup a jsonp endpoint that will collect the database data, and then
+return it as a JSON object that is called by a "callback function".
+
+---
+
+e.g. 
+`api.quoccabank.com/get_users/jsonp?callback=console.log`
+returns
+```
+login([
+{username:"jesse",password:"epicgamer123"}
+{username:"melon",password:"ismellreallybad"}
+{username:"george",password:"thanksforwatching!"}
+])
+```
+Just as plaintext.
+
+---
+
+Now... if we were to set this endpoint,
+`api.quoccabank.com/get_users/jsonp?callback=login`
+as our script source on login.quoccabank.com,
+
 ```html
-<!-- https://melon.com/numbers?callback=load_data -->
-load_data([1, 2, 3, 4, 5])
+<script src="api.quoccabank.com/get_users/jsonp?callback=login"/> </script>
 ```
 
-&nbsp;
+What would happen?
 
-* The script below will invoke `load_data([...])`
+---
+
+The HTML on `login.quoccabank.com` would then execute that plaintext as javascript!
+
 ```html
-<script src="https://melon.com/numbers?callback=load_data"></script>
+<script src="api.quoccabank.com/get_users/jsonp?callback=console.log"/>
+console.log([
+{username:"jesse",password:"epicgamer123"}
+{username:"melon",password:"ismellreallybad"}
+{username:"george",password:"thanksforwatching!"}
+])
+</script>
 ```
 
 ---
