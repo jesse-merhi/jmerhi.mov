@@ -16,6 +16,18 @@
       img: "XSS.webp",
       week: "7",
     },
+    {
+      name: "Week 8",
+      content: "CSP & CORS",
+      img: "XSS.webp",
+      week: "8",
+    },
+    {
+      name: "Week 9",
+      content: "Dev Secops",
+      img: "XSS.webp",
+      week: "9",
+    },
   ];
   const resources = [
     { name: "Recon Tools", path: "recon", img: "ReconTools.webp" },
