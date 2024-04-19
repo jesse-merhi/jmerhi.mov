@@ -9,7 +9,7 @@
     week_number = -1;
   } else {
     week_number = parseInt(week.replace("week", ""));
-    if (week_number <= 0 || week_number >= 10) {
+    if (week_number <= 0 || week_number > 10) {
       week_number = -1;
     }
   }
