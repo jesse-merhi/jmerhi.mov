@@ -28,10 +28,9 @@
       img: "XSS.webp",
       week: "9",
     },
-    ,
     {
       name: "Week 10",
-      content: "Series Finale",
+      content: "Final Exam",
       img: "XSS.webp",
       week: "10",
     },
