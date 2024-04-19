@@ -28,6 +28,13 @@
       img: "XSS.webp",
       week: "9",
     },
+    ,
+    {
+      name: "Week 10",
+      content: "Series Finale",
+      img: "XSS.webp",
+      week: "10",
+    },
   ];
   const resources = [
     { name: "Recon Tools", path: "recon", img: "ReconTools.webp" },

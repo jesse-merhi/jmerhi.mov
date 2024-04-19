@@ -12,9 +12,10 @@ def index():
     query = request.args.get('q')
     resp = make_response(render_template('index.html', query=query))
 
-    resp.headers.set('Content-Security-Policy', "script-src 'self' localhost:8000")
+    resp.headers.set('Content-Security-Policy',
+                     "script-src 'self' localhost:8000")
     return resp
 
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=8001)
