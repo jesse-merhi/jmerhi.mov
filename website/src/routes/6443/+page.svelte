@@ -37,6 +37,7 @@
   ];
   const resources = [
     { name: "Recon Tools", path: "recon", img: "ReconTools.webp" },
+    { name: "Help!", path: "help", img: "ReconTools.webp" },
   ];
   import * as Carousel from "$lib/components/ui/carousel/";
   import * as Card from "$lib/components/ui/card";
