@@ -8,7 +8,6 @@ outputs: ["Reveal"]
 
 ---
 
-{{< slide class="center" >}}
 # HELP!
 ### Web application Security
 ### Jesse (Merhi)
@@ -44,9 +43,24 @@ The #1 Most important thing to do:
 
 - Exam can cover anything
 - Exam is in order (kinda)
-A: Midterm Content -> Auth(N/Z), IDOR, Cookies, Basic Squilly
-B: Everything else... XSS, SQLI, SSTI, SSRF, CSRF, TGIF (<3 Katy)
-C: 
+
+---
+
+### A
+
+Midterm Content -> Auth(N/Z), IDOR, Cookies, Basic Squilly
+
+---
+
+
+### B
+
+Everything else... XSS, SQLI, SSTI, SSRF, CSRF, TGIF (<3 Katy)
+
+---
+
+### C
+
 1. Extended: Harder Challenges Covering any Content!
 2. Core: Potentially devsecops, some other challenges covering any of the content
 
@@ -82,6 +96,7 @@ e.g.
 - We can test things that arent in the challenges... 
 
 > So review previous content!
+
 > jmerhi.mov or waugh.zip!
 
 {{% /section %}}
@@ -239,11 +254,12 @@ import os
 
 if folder_name = ".":
     return os.listdir(".")
+elif folder_name.startsWith("/") or folder_name.startsWith("~"):
+    return "File not found."
 
 for entity in os.listdir(folder_name):
     if entity == folder_name:
         return os.listdir(folder_name)
-        
 ```
 
 ---
