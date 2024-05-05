@@ -53,7 +53,7 @@
     <Carousel.Root>
       <Carousel.Content>
         {#each weeks as week}
-          <a href="/6443/week{week.week}">
+          <a href="/6443/week{week.week}" class="no-underline">
             <Carousel.Item>
               <Card.Root class="h-[22rem] w-[18rem] ">
                 <Card.Header class="bg-primary">
@@ -83,7 +83,7 @@
     <Carousel.Root>
       <Carousel.Content class="w-full max-w-[25rem]">
         {#each resources as resource, index}
-          <a href="/6443/resources/{resource.path}">
+          <a href="/6443/resources/{resource.path}" class="no-underline">
             <Carousel.Item>
               <Card.Root class="h-[22rem] w-[18rem]">
                 <Card.Header class="bg-primary">
