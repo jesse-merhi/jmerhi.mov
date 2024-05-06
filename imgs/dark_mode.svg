@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129.25 75.92">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #f7f13b;
+        stroke-miterlimit: 10;
+        stroke-width: 4px;
+      }
+    </style>
+  </defs>
+  <g id="Black_M_layer" data-name="Black M layer">
+    <g>
+      <path class="cls-1" d="M27.06,28.5v22.16c0,14.9-14.5,14.9-14.5,0l-10.56.24c0,30.71,36.63,30.71,36.63,0V5.22S2,5.22,2,5.22"/>
+      <g>
+        <polyline class="cls-1" points="84.4 29.97 82.1 26.32 68.79 5.22 54.14 73.92"/>
+        <polyline class="cls-1" points="127.3 73.81 111.59 5.34 98.61 26.64 96.73 29.62"/>
+        <path class="cls-1" d="M90.63,52.26h8.97s-4.86-6.74-4.86-6.74c2.66-2.38,4.86-5,4.86-8.39,0-5.65-4.01-10.24-8.97-10.24h.18c-4.95,0-8.97,4.58-8.97,10.24,0,3.39,2.2,6.01,4.86,8.39l-4.86,6.74h8.97"/>
+        <line class="cls-1" x1="71.94" y1="37.57" x2="64.19" y2="73.92"/>
+        <line class="cls-1" x1="109.39" y1="37.45" x2="117.14" y2="73.81"/>
+      </g>
+    </g>
+  </g>
+</svg>
