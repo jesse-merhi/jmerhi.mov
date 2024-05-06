@@ -1,18 +1,20 @@
 <script>
+  // @ts-nocheck
+
   import Icon from "@iconify/svelte";
   import { fade } from "svelte/transition";
   let scrollHeight = 0;
   let innerHeight = 0;
+  let scrollable = null;
 </script>
 
 <svelte:window bind:innerHeight />
 <div
   class="w-[100%] h-[100%] overflow-y-auto"
+  bind:this={scrollable}
   on:scroll={(e) => (scrollHeight = e.target.scrollTop)}
 >
-  <div
-    class="flex sm:flex-row flex-col w-[100%] h-[90%] sm:pl-5 pt-5 z-0 relative"
-  >
+  <div class="flex sm:flex-row flex-col w-[100%] h-[93%] sm:pl-5 z-0 relative">
     <div
       class="sm:w-[50%] h-[30%] sm:h-full flex flex-col justify-center items-center relative z-10"
     >
@@ -37,19 +39,35 @@
       />
     </div>
   </div>
-
-  <div class="bg-primary h-[40vh] w-[100%] relative z-10">
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <div
+    class="h-[7%] w-full flex justify-center items-center bg-primary relative z-10"
+  >
+    {#if scrollHeight < innerHeight / 5}
+      <div
+        transition:fade={{ duration: 200 }}
+        on:click={(e) =>
+          scrollable.scrollTo({
+            top:
+              e.target.getBoundingClientRect().top -
+              scrollable.getBoundingClientRect().top,
+            behavior: "smooth",
+          })}
+      >
+        <Icon
+          icon="lucide:circle-arrow-down"
+          class="text-primary-foreground text-3xl"
+        />
+      </div>
+    {/if}
+  </div>
+  <div class=" flex justify-center bg-primary w-full relative z-10 pb-10">
     <div
-      class="w-full flex justify-center items-center h-[9.3lvh] z-10 relative"
+      class="w-full flex justify-center items-center text-primary-foreground text-center text-5xl"
     >
-      {#if scrollHeight < innerHeight / 5}
-        <div transition:fade={{ duration: 200 }}>
-          <Icon
-            icon="lucide:circle-arrow-down"
-            class="text-primary-foreground text-3xl"
-          />
-        </div>
-      {/if}
+      My website is still under 🚧 construction 🚧 <br />
+      Come back a bit later 😉
     </div>
   </div>
 </div>

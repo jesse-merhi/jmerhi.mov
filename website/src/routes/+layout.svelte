@@ -32,15 +32,15 @@
 {:else}
   <div class="w-screen h-screen">
     <nav
-      class="bg-transparent h-[5vh] flex items-center justify-between m-[20px] mb-0"
+      class="bg-transparent h-[5vh] flex items-center justify-between m-[1vh]"
     >
       <div class="flex flex-row h-full">
         <a class="h-full" href="/">
           {#if $mode}
             <img
               src={$mode == "dark"
-                ? "imgs/dark_mode.svg"
-                : "imgs/light_mode.svg"}
+                ? "/imgs/dark_mode.svg"
+                : "/imgs/light_mode.svg"}
               class="h-full"
               alt="home"
             />
