@@ -6,10 +6,10 @@
   import { page } from "$app/stores";
   import { slide } from "svelte/transition";
   import { cubicOut } from "svelte/easing";
+  import { mode } from "mode-watcher";
   $page.url.pathname;
   const endpoints = [
-    { path: "/", content: "Home" },
-    { path: "/blog", content: "Blog" },
+    //{ path: "/blog", content: "BLOG" },
     { path: "/6443", content: "6443" },
   ];
   export let data;
@@ -32,24 +32,35 @@
 {:else}
   <div class="w-screen h-screen">
     <nav
-      class="bg-transparent w-screen h-[5vh] flex items-center justify-between m-[20px]"
+      class="bg-transparent h-[5vh] flex items-center justify-between m-[20px] mb-0"
     >
+      <div class="flex flex-row h-full">
+        <a class="h-full" href="/">
+          {#if $mode}
+            <img
+              src={$mode == "dark"
+                ? "imgs/dark_mode.svg"
+                : "imgs/light_mode.svg"}
+              class="h-full"
+              alt="home"
+            />
+          {/if}
+        </a>
+      </div>
       <div class="flex flex-row h-full">
         {#each endpoints as endpoint}
           <a
             class="{$page.url.pathname == endpoint.path
-              ? 'text-muted-muted bg-secondary rounded-full border-black border-[3px] shadow-[3px_3px_0px_rgba(0,0,0,1)] h-full text-black dark:text-background font-black '
-              : 'text-muted-foreground font-black hover:text-black dark:hover:text-white '} no-underline transition ease-in-out duration-100 h-full items-center flex pl-8 pr-8"
+              ? 'text-muted-muted underline h-full text-secondary font-black '
+              : 'text-muted-foreground font-black  hover:text-black dark:hover:text-white '} transition ease-in-out duration-100 h-full items-center flex pl-8 pr-8"
             href={endpoint.path}
           >
             {endpoint.content}
           </a>
         {/each}
-      </div>
-      <div>
         <ModeWatcher />
         <Button
-          class="w-[4.5vh] h-[4.5vh]  hover:text-foreground text-muted-foreground"
+          class="w-[4.5vh] h-[4.5vh]  hover:text-foreground text-secondary"
           on:click={toggleMode}
           variant="link"
           size="icon"

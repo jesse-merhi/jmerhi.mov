@@ -57,8 +57,10 @@
             <Carousel.Item>
               <Card.Root class="h-[22rem] w-[18rem] ">
                 <Card.Header class="bg-primary">
-                  <Card.Title>{week.name}</Card.Title>
-                  <Card.Description class="text-primary-foreground"
+                  <Card.Title class="text-primary-foreground font-extrabold"
+                    >{week.name}</Card.Title
+                  >
+                  <Card.Description class="text-primary-foreground font-light"
                     >{week.content}</Card.Description
                   >
                 </Card.Header>
@@ -87,7 +89,9 @@
             <Carousel.Item>
               <Card.Root class="h-[22rem] w-[18rem]">
                 <Card.Header class="bg-primary">
-                  <Card.Title>{resource.name}</Card.Title>
+                  <Card.Title class="text-primary-foreground font-extrabold"
+                    >{resource.name}</Card.Title
+                  >
                 </Card.Header>
                 <Card.Content class="p-5">
                   <img src="/imgs/{resource.img}" alt="images" />
