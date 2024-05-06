@@ -11,6 +11,15 @@ const config = {
 		  precompress: false,
 		  strict: true,
 		}),
+		prerender: {
+			handleHttpError: ({ path, referrer, message }) => {
+				// ignore deliberate link to shiny 404 page
+				if (path === '/blog') {
+					return;
+				}
+				throw new Error(message);
+			}
+		}
 	  },
 
     preprocess: vitePreprocess()
