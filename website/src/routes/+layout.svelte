@@ -1,10 +1,11 @@
-<script>
+<script lang="js">
   import "../app.pcss";
   import { ModeWatcher, toggleMode } from "mode-watcher";
   import Icon from "@iconify/svelte";
   import { Button } from "$lib/components/ui/button";
   import { page } from "$app/stores";
   import { slide } from "svelte/transition";
+  // @ts-ignore
   import { cubicOut } from "svelte/easing";
   import { mode } from "mode-watcher";
   $page.url.pathname;
@@ -12,15 +13,21 @@
     //{ path: "/blog", content: "BLOG" },
     { path: "/6443", content: "6443" },
   ];
+  // @ts-ignore
   export let data;
 
+  // @ts-ignore
   function fadeSlide(node, options) {
     const slideTrans = slide(node, options);
     return {
       duration: options.duration,
       delay: options.delay || 0,
+      // @ts-ignore
       css: (t) => `
-            ${slideTrans.css(t)}
+            ${
+              // @ts-ignore
+              slideTrans.css(t)
+            }
             opacity: ${t};
         `,
     };
