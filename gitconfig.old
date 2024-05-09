@@ -1,0 +1,5 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = jmerhi
+	email = jmerhi@DESKTOP-NUU6T1U.localdomain
