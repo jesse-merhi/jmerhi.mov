@@ -10,7 +10,7 @@
   import { mode } from "mode-watcher";
   $page.url.pathname;
   const endpoints = [
-    //{ path: "/blog", content: "BLOG" },
+    { path: "/blog", content: "BLOG" },
     { path: "/6443", content: "6443" },
   ];
   // @ts-ignore
