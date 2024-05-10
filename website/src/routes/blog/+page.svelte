@@ -13,7 +13,7 @@
     }
     response = await fetch("/blog_assets/llms_are_secure_for_now/config.json");
     console.log(response);
-    blogConfig = JSON.parse(await response.text());
+    blogConfig = await response.json();
   });
 </script>
 
