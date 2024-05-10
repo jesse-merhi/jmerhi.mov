@@ -19,7 +19,7 @@
   });
 </script>
 
-<div class="h-[100%] w-[70%]">
+<div class="h-[100%] w-[95%] sm:w-[70%]">
   <div
     class="markdown h-[100%] w-[100%] pr-[20px] pl-[20px] pb-[50px] overflow-y-scroll overflow-x-hidden break-words"
   >
