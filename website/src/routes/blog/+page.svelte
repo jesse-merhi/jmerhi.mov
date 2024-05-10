@@ -17,5 +17,4 @@
   });
 </script>
 
-<div></div>
-<!-- <BlogComponent {blogContent} {blogConfig} /> -->
+<BlogComponent {blogContent} {blogConfig} />
