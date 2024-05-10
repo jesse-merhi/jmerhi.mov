@@ -1,8 +1,22 @@
 <script>
+  import { onMount } from "svelte";
   import SvelteMarkdown from "svelte-markdown";
   import CodeComponent from "./CodeComponent.svelte";
-  export let blogContent = "";
-  export let blogConfig;
+  import { page } from "$app/stores";
+  let blog_name = $page.params.blog_name;
+  let blogContent = "";
+  let blogConfig = {};
+  onMount(async () => {
+    let response = await fetch("/blog/" + blog_name + "/blog.md");
+    if (response.ok) {
+      blogContent = await response.text();
+    } else {
+      blogContent = "Blog Not Found :(";
+    }
+    response = await fetch("/blog/" + blog_name + "/config.json");
+    console.log(response);
+    blogConfig = await response.json();
+  });
 </script>
 
 <div class="h-[100%] w-[70%]">
@@ -12,8 +26,7 @@
     <div class="h-[50px]"></div>
     <h1>{blogConfig.title || ""}</h1>
     <p>{blogConfig.author || ""} {blogConfig.published || ""}</p>
-    <!-- <SvelteMarkdown source={blogContent} renderers={{ code: CodeComponent }} /> -->
-    <SvelteMarkdown source={blogContent} />
+    <SvelteMarkdown source={blogContent} renderers={{ code: CodeComponent }} />
   </div>
 </div>
 

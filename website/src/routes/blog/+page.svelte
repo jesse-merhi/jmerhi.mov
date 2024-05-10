@@ -1,20 +1,11 @@
 <script>
-  import { onMount } from "svelte";
-  import BlogComponent from "./BlogComponent.svelte";
-  let blogContent = "";
-  let blogConfig = {};
-
-  onMount(async () => {
-    let response = await fetch("/blog/llms_are_secure_for_now/blog.md");
-    if (response.ok) {
-      blogContent = await response.text();
-    } else {
-      blogContent = "Blog Not Found :(";
-    }
-    response = await fetch("/blog/llms_are_secure_for_now/config.json");
-    console.log(response);
-    blogConfig = await response.json();
-  });
+  const blogs = [
+    { path: "llms_are_secure_for_now", title: "LLMs are Secure... For now." },
+  ];
 </script>
 
-<BlogComponent {blogContent} {blogConfig} />
+<div>
+  {#each blogs as blog}
+    <a href={`/blog/${blog.path}`}>{blog.title}</a>
+  {/each}
+</div>
