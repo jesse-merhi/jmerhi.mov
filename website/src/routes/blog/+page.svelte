@@ -5,13 +5,13 @@
   let blogConfig = {};
 
   onMount(async () => {
-    let response = await fetch("/blog/llms_are_secure_for_now/blog.md");
+    let response = await fetch("/blog_assets/llms_are_secure_for_now/blog.md");
     if (response.ok) {
       blogContent = await response.text();
     } else {
       blogContent = "Blog Not Found :(";
     }
-    response = await fetch("/blog/llms_are_secure_for_now/config.json");
+    response = await fetch("/blog_assets/llms_are_secure_for_now/config.json");
     console.log(response);
     blogConfig = JSON.parse(await response.text());
   });
