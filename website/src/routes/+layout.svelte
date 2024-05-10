@@ -84,13 +84,14 @@
         </Button>
       </div>
     </nav>
-
-    <div
-      class="bg-background w-screen h-[93vh] flex justify-center items-center"
-      in:fadeSlide={{ duration: 400, delay: 0 }}
-      out:fadeSlide={{ duration: 400 }}
-    >
-      <slot />
-    </div>
+    {#key data.url}
+      <div
+        class="bg-background w-screen h-[93vh] flex justify-center items-center"
+        in:fadeSlide={{ duration: 400, delay: 0 }}
+        out:fadeSlide={{ duration: 400 }}
+      >
+        <slot />
+      </div>
+    {/key}
   </div>
 {/if}
