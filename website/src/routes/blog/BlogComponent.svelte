@@ -5,7 +5,6 @@
   export let blogConfig;
 </script>
 
-<div>here is a thing</div>
 <div class="h-[100%] w-[70%]">
   <div
     class="markdown h-[100%] w-[100%] pr-[20px] pl-[20px] pb-[50px] overflow-y-scroll overflow-x-hidden break-words"
@@ -13,7 +12,7 @@
     <div class="h-[50px]"></div>
     <h1>{blogConfig.title || ""}</h1>
     <p>{blogConfig.author || ""} {blogConfig.published || ""}</p>
-    <SvelteMarkdown source={blogContent} renderers={{ code: CodeComponent }} />
+    <!-- <SvelteMarkdown source={blogContent} renderers={{ code: CodeComponent }} /> -->
   </div>
 </div>
 
