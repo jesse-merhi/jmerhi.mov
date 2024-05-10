@@ -13,7 +13,7 @@
     <h1>{blogConfig.title || ""}</h1>
     <p>{blogConfig.author || ""} {blogConfig.published || ""}</p>
     <!-- <SvelteMarkdown source={blogContent} renderers={{ code: CodeComponent }} /> -->
-    <SvelteMarkdown source={blogContent} />
+    <!-- <SvelteMarkdown source={blogContent} /> -->
   </div>
 </div>
 
