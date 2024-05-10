@@ -64,7 +64,7 @@ The second of these vulnerabilities is sensitive data disclosure. This involves 
 
 Leaking information into training data is typically less noticed because when you train an LLM (or fine-tune it) this mainly influences performance about a specific task. For example, if you fine-tuned a model on customer help data, that would make the model more likely to,
 
-1. Respond to queries that is stylistically similae to a customer support representative
+1. Respond to queries that is stylistically similar to a customer support representative
 2. Become better at answering questions in the way a customer support representative might.
 
 This may also mean you could inadvertently get the model to disclose information. For example, if you prompted the model with a question like, 
@@ -94,7 +94,7 @@ No longer will people be bound by their ability to write code. You can just go t
 
 ### How Might AI Agents Help Us Use Sensitive Data Safely?
 
-To understand how AI Agents might help us in keeping sensitive data protected, we will consider the previous example of an automated support chatbot within an application.
+To understand how AI Agents might help us keep sensitive data protected, we will consider the previous example of an automated support chatbot within an application.
 
 #### AI Chatbot Scenario
 
