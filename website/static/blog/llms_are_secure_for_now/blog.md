@@ -1,4 +1,4 @@
-- [Academic LLM Security Vulnerabilities](#academic-llm-security-vulnerabilities)
+- [Model "Academic" LLM Security Vulnerabilities](#model-academic-llm-security-vulnerabilities)
 - [LLM Privacy \& Ethics Vulnerabilities](#llm-privacy--ethics-vulnerabilities)
   - [Unethical Ouputs](#unethical-ouputs)
   - [Sensitive Data Disclosure](#sensitive-data-disclosure)
@@ -24,8 +24,8 @@ Now I know what you are thinking...
 See the thing is that what most people call LLM _Security Vulnerabilities_ are actually either,Academic Problems or Privacy & Ethical Problems. What do I mean by this? Well I'm glad you asked...
 
 
-## Academic LLM Security Vulnerabilities
-One of the classic vulnerabilities that people come up with when it comes to LLMs relates to the model itself. Usually, these three ideas come up
+## Model "Academic" LLM Security Vulnerabilities
+One of the classic vulnerabilities that people come up with when it comes to LLMs relates to the vulnerabilities in the model itself. These are commonly seen in academic papers (such as ![One Pixel Attack for Fooling Deep Neural Networks](https://arxiv.org/abs/1710.08864)) and usually involve, one of three concepts,  
 
 1. You can change the input **training** data and that will impact the model and make it change what it outputs!!
 2. You can change the **model** itself and that will impact the model and make it change what it outputs!!
