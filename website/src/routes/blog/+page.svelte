@@ -5,7 +5,10 @@
       path: "llms_are_secure_for_now",
       title: "LLMs are Secure... For now.",
       author: "Jesse Merhi",
-      blurb: "This is a bunch of text",
+      blurb:
+        "AI and LLMs are the two biggest buzzwords right now and for the most" +
+        "part they are relatively secure. But how does that translate into" +
+        "the future? Should we be worried about the future of AI?",
       published: "10th May, 2024",
     },
   ];
@@ -36,16 +39,14 @@
             {blog.title}
           </div>
           <div
-            class="text-muted-foreground font-light font-bold text-xs p-y-2 min-[1150px]:text-sm"
+            class="text-muted-foreground font-bold text-xs p-y-2 min-[1150px]:text-sm"
           >
             {blog.author} | {blog.published}
           </div>
           <div
             class=" text-xs sm:text-xs md:text-sm min-[1150px]:text-lg text-ellipsis overflow-hidden"
           >
-            AI and LLMs are the two biggest buzzwords right now and for the most
-            part they are relatively secure. But how does that translate into
-            the future? Should we be worried about the future of AI?
+            {blog.blurb}
           </div>
         </div>
       </a>
