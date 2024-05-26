@@ -7,8 +7,8 @@
       author: "Jesse Merhi",
       blurb:
         "AI and LLMs are the two biggest buzzwords right now and for the most" +
-        "part they are relatively secure. But how does that translate into" +
-        "the future? Should we be worried about the future of AI?",
+        " part they are relatively secure. But how does that translate into" +
+        " the future? Should we be worried about the future of AI?",
       published: "10th May, 2024",
     },
   ];
