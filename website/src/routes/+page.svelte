@@ -44,7 +44,7 @@
   <div
     class="h-[7%] w-full flex justify-center items-center bg-primary relative z-10"
   >
-    {#if scrollHeight < innerHeight / 5}
+    {#if scrollHeight < innerHeight / 5 - 150}
       <div
         transition:fade={{ duration: 200 }}
         on:click={(e) =>
@@ -57,17 +57,86 @@
       >
         <Icon
           icon="lucide:circle-arrow-down"
-          class="text-primary-foreground text-3xl"
+          class="text-primary-foreground text-3xl hover:cursor-pointer"
         />
       </div>
     {/if}
   </div>
+  <div class="flex justify-center bg-secondary w-full relative z-10 pb-10">
+    <div
+      class="w-full flex justify-center items-center text-primary-foreground text-center text-5xl flex-col"
+    >
+      <div class="p-10">What do I do?</div>
+      <div
+        class="flex flex-row w-full space-x-[100px] justify-center h-[30rem]"
+      >
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Security Engineer
+        </div>
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Casual Academic
+        </div>
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Academic
+        </div>
+      </div>
+    </div>
+  </div>
   <div class=" flex justify-center bg-primary w-full relative z-10 pb-10">
     <div
-      class="w-full flex justify-center items-center text-primary-foreground text-center text-5xl"
+      class="w-full flex justify-center items-center text-primary-foreground text-center text-5xl flex-col"
     >
-      My website is still under 🚧 construction 🚧 <br />
-      Come back a bit later 😉
+      <div class="p-10">What have I done?</div>
+      <div
+        class="flex flex-row w-full space-x-[100px] justify-center h-[30rem]"
+      >
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Security Awareness
+        </div>
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Software Engineer
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" flex justify-center bg-primary w-full relative z-10 pb-10">
+    <div
+      class="w-full flex justify-center items-center text-primary-foreground text-center text-5xl flex-col"
+    >
+      <div class="p-10">What do I love?</div>
+      <div
+        class="flex flex-row w-full space-x-[100px] justify-center h-[30rem]"
+      >
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Security (Duh)
+        </div>
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          AI (Duh x2)
+        </div>
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Writing
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" flex justify-center bg-primary w-full relative z-10 pb-10">
+    <div
+      class="w-full flex justify-center items-center text-primary-foreground text-center text-5xl flex-col"
+    >
+      <div class="p-10">What do I do in my spare time?</div>
+      <div
+        class="flex flex-row w-full space-x-[100px] justify-center h-[30rem]"
+      >
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Gaming
+        </div>
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Creatives
+        </div>
+        <div class="flex flex-row bg-background text-foreground w-[20rem]">
+          Enjoy a Good Story
+        </div>
+      </div>
     </div>
   </div>
 </div>

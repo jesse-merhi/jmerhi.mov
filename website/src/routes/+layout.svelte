@@ -10,7 +10,7 @@
   import { mode } from "mode-watcher";
   $page.url.pathname;
   const endpoints = [
-    //{ path: "/blog", content: "BLOG" },
+    { path: "/blog", content: "BLOG" },
     { path: "/6443", content: "6443" },
   ];
   // @ts-ignore
@@ -86,7 +86,7 @@
     </nav>
     {#key data.url}
       <div
-        class="bg-background w-screen h-[93vh] flex justify-center items-center"
+        class="bg-background w-screen h-[93dvh] flex justify-center items-center"
         in:fadeSlide={{ duration: 400, delay: 0 }}
         out:fadeSlide={{ duration: 400 }}
       >
